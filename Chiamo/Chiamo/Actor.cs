@@ -23,17 +23,19 @@ namespace MiffTheFox.Chiamo
             get { return new Rectangle(X, Y, Width, Height); }
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
+        public int ZIndex { get; set; }
 
         public Actor(int width, int height)
         {
-            Guid = new Guid();
+            Guid = Guid.NewGuid();
             X = 0;
             Y = 0;
             Width = width;
             Height = height;
+            ZIndex = 0;
         }
 
-        public virtual void Tick(GameTickArgs e) { }
+        public virtual void Tick(GameTickArgs e, Scene s) { }
 
         public abstract void Draw(GameDrawArgs e);
 

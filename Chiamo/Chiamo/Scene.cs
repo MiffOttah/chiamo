@@ -21,13 +21,13 @@ namespace MiffTheFox.Chiamo
         {
             foreach (var actor in Actors)
             {
-                actor.Tick(e);
+                actor.Tick(e, this);
             }
         }
 
         public virtual void Draw(GameDrawArgs e)
         {
-            foreach (var actor in Actors)
+            foreach (var actor in Actors.OrderBy(_ => _.ZIndex))
             {
                 actor.Draw(e);
             }

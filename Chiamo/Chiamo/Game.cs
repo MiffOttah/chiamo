@@ -19,6 +19,9 @@ namespace MiffTheFox.Chiamo
 
         protected Stack<Scene> Scenes = new Stack<Scene>();
 
+        private long _GameTime = 0;
+        public long GameTime {  get { return _GameTime; } }
+
         protected Game(int width, int height, string title, int speed = 66)
         {
             this.Width = width;
@@ -31,6 +34,9 @@ namespace MiffTheFox.Chiamo
 
         public virtual void Tick(GameTickArgs e)
         {
+            _GameTime++;
+            if (_GameTime == long.MaxValue) _GameTime = 0;
+
             e.Game = this;
 
             if (Scenes.Count > 0)

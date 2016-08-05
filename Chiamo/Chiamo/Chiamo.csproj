@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="ActorCollection.cs" />
+    <Compile Include="Actors\CollisionActor.cs" />
+    <Compile Include="Actors\MomentumCollisionActor.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Canvas.cs" />
