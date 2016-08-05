@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ChHelloWorld
 {
+    /// <summary>
+    /// This is a simple scene to demonstrate the capabilities of Chiamo. Left-click to place a ball onto the field, right-click a ball to remove it, or press escape to remove them all.
+    /// </summary>
     public class HelloScene : Scene
     {
         bool _Clicked = false;
@@ -14,8 +17,6 @@ namespace ChHelloWorld
 
         public override void Initalize()
         {
-            Actors.Add(new BallActor() { X = 10, Y = 10, XMomentum = 10, YMomentum = 10 });
-            Actors.Add(new BallActor() { X = 100, Y = 10, XMomentum = -10, YMomentum = 10 });
         }
 
         public override void Tick(GameTickArgs e)
@@ -28,8 +29,8 @@ namespace ChHelloWorld
                     {
                         X = e.Input.MouseX - 20,
                         Y = e.Input.MouseY - 20,
-                        XMomentum = _RNG.Next(-1, 1) * 10,
-                        YMomentum = _RNG.Next(-1, 1) * 10
+                        XMomentum = _RNG.Next(-1, 2) * 10,
+                        YMomentum = _RNG.Next(-1, 2) * 10
                     });
                     _Clicked = true;
                 }
@@ -39,8 +40,23 @@ namespace ChHelloWorld
                 _Clicked = false;
             }
 
+            // press the menu button (escape) to remove all balls
+            if (e.Input.JoyButton.HasFlag(JoyButton.Menu))
+            {
+                foreach (var actor in Actors.Where(_ => _ is BallActor).ToArray())
+                {
+                    Actors.Remove(actor);
+                }
+            }
+
             // update actors
             base.Tick(e);
+        }
+
+        public override void Draw(GameDrawArgs e)
+        {
+            e.Canvas.Clear(System.Drawing.Color.White);
+            base.Draw(e);
         }
     }
 }
