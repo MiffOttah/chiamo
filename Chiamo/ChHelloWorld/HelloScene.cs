@@ -1,6 +1,7 @@
 ﻿using MiffTheFox.Chiamo;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,11 @@ namespace ChHelloWorld
 
         public override void Draw(GameDrawArgs e)
         {
-            e.Canvas.Clear(System.Drawing.Color.White);
+            e.Canvas.Clear(Color.White);
+
+            e.Canvas.DrawString(Game.Fonts["ArchitectsDaughter"], "Hello, world!", Color.Black, 80, 0, 0, Game.Width, Game.Height, true, false, StringAlignment.Center, StringAlignment.Center);
+            e.Canvas.DrawString(Game.Fonts["ArchitectsDaughter"], "Font © Kimberly Geswein", Color.Black, 12, 0, 0, Game.Width, Game.Height, false, false, StringAlignment.Far, StringAlignment.Far);
+
             base.Draw(e);
         }
     }

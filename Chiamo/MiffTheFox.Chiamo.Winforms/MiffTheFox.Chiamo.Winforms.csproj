@@ -53,6 +53,7 @@
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GdiCanvas.cs" />
+    <Compile Include="GdiFontManager.cs" />
     <Compile Include="GdiSpriteManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

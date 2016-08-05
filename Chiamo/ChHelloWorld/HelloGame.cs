@@ -19,6 +19,9 @@ namespace ChHelloWorld
             // Load sprites
             Sprites.AddSprite("ball", Properties.Resources.ball);
 
+            // Load fonts
+            Fonts.AddFont("ArchitectsDaughter", Properties.Resources.ArchitectsDaughter);
+
             // Push initial scene
             PushScene(new HelloScene());
         }

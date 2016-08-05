@@ -16,6 +16,7 @@ namespace MiffTheFox.Chiamo
         public int TargetTimerSpeed { get; private set; }
 
         public SpriteManager Sprites { get; set; }
+        public FontManager Fonts { get; set; }
 
         protected Stack<Scene> Scenes = new Stack<Scene>();
 

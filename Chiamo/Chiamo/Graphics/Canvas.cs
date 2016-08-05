@@ -37,5 +37,19 @@ namespace MiffTheFox.Chiamo.Graphics
             DrawSprite(sprite, location.X, location.Y, location.Width, location.Height);
         }
         public abstract void DrawSprite(SpriteInfo sprite, int x, int y, int w, int h, int row, int col);
+
+        public void DrawString(FontInfo font, string text, Color color, int textHeight, Rectangle location)
+        {
+            DrawString(font, text, color, textHeight, location.X, location.Y, location.Width, location.Height, false, false, StringAlignment.Near, StringAlignment.Near);
+        }
+        public void DrawString(FontInfo font, string text, Color color, int textHeight, int x, int y, int w, int h)
+        {
+            DrawString(font, text, color, textHeight, x, y, w, h, false, false, StringAlignment.Near, StringAlignment.Near);
+        }
+        public void DrawString(FontInfo font, string text, Color color, int textHeight, Rectangle location, bool bold, bool italic, StringAlignment hAlign, StringAlignment vAlign)
+        {
+            DrawString(font, text, color, textHeight, location.X, location.Y, location.Width, location.Height, bold, italic, hAlign, vAlign);
+        }
+        public abstract void DrawString(FontInfo font, string text, Color color, int textHeight, int x, int y, int w, int h, bool bold, bool italic, StringAlignment hAlign, StringAlignment vAlign);
     }
 }

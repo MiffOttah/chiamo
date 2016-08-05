@@ -24,6 +24,7 @@ namespace MiffTheFox.Chiamo.Winforms
             InitializeComponent();
 
             game.Sprites = new GdiSpriteManager();
+            game.Fonts = new GdiFontManager();
             this._Game = game;
         }
 
