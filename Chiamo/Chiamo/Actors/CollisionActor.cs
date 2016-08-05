@@ -20,8 +20,10 @@ namespace MiffTheFox.Chiamo.Actors
             var hb = this.HitBox;
             var ct = CollisionType.None;
 
-            if (hb.Left < 0 || hb.Right >= game.Width) ct |= CollisionType.X;
-            if (hb.Top < 0 || hb.Bottom >= game.Height) ct |= CollisionType.Y;
+            if (hb.Left < 0) ct |= CollisionType.Left;
+            if (hb.Right >= game.Width) ct |= CollisionType.Right;
+            if (hb.Top < 0) ct |= CollisionType.Top;
+            if (hb.Bottom >= game.Height) ct |= CollisionType.Bottom;
 
             return ct;
         }
@@ -39,14 +41,11 @@ namespace MiffTheFox.Chiamo.Actors
                 {
                     if (isect.Height > isect.Width)
                     {
-                        return CollisionType.X;
+                        return hb1.X < hb2.X ? CollisionType.Left : CollisionType.Right;
                     }
-                    else if (isect.Width > isect.Height)
+                    else
                     {
-                        return CollisionType.Y;
-                    } else
-                    {
-                        return CollisionType.None;
+                        return hb1.Y < hb2.Y ? CollisionType.Top : CollisionType.Bottom;
                     }
                 }
             }
@@ -59,8 +58,9 @@ namespace MiffTheFox.Chiamo.Actors
     public enum CollisionType
     {
         None = 0,
-        X = 1,
-        Y = 2,
-        XY = 3
+        Top = 1,
+        Left = 2,
+        Bottom = 4,
+        Right = 8
     }
 }
