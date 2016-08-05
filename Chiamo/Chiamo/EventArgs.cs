@@ -10,6 +10,7 @@ namespace MiffTheFox.Chiamo
     public class GameTickArgs
     {
         public Game Game { get; set; }
+        public InputState Input { get; set; }
     }
 
     public class GameDrawArgs

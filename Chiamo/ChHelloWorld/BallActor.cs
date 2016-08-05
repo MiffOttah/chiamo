@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace ChHelloWorld
 {
-    public class BallActor : MomentumCollisionActor
+    public class BallActor : MomentumCollisionActor, IClickableActor
     {
         public BallActor() : base(40, 40)
         {
@@ -20,6 +20,14 @@ namespace ChHelloWorld
             get
             {
                 return new Rectangle(X + 5, Y + 5, 30, 30);
+            }
+        }
+
+        public void Clicked(GameTickArgs e, Scene s)
+        {
+            if (e.Input.MouseButton == MouseButton.Right)
+            {
+                s.Actors.Remove(this);
             }
         }
 

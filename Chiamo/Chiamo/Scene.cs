@@ -19,7 +19,7 @@ namespace MiffTheFox.Chiamo
 
         public virtual void Tick(GameTickArgs e)
         {
-            foreach (var actor in Actors)
+            foreach (var actor in Actors.ToArray())
             {
                 actor.Tick(e, this);
             }
@@ -27,7 +27,7 @@ namespace MiffTheFox.Chiamo
 
         public virtual void Draw(GameDrawArgs e)
         {
-            foreach (var actor in Actors.OrderBy(_ => _.ZIndex))
+            foreach (var actor in Actors.OrderBy(_ => _.ZIndex).ToArray())
             {
                 actor.Draw(e);
             }

@@ -44,11 +44,13 @@
     <Compile Include="Actor.cs" />
     <Compile Include="ActorCollection.cs" />
     <Compile Include="Actors\CollisionActor.cs" />
+    <Compile Include="Actors\IClickableActor.cs" />
     <Compile Include="Actors\MomentumCollisionActor.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Canvas.cs" />
     <Compile Include="Graphics\SpriteManager.cs" />
+    <Compile Include="InputState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
   </ItemGroup>

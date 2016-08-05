@@ -15,6 +15,10 @@ namespace MiffTheFox.Chiamo.Winforms
     {
         private Game _Game;
 
+        private JoyButton _Keys = JoyButton.None;
+        private MouseButton _MouseButtons = MouseButton.None;
+        private Point _MouseLocation = Point.Empty;
+
         public GameForm(Game game)
         {
             InitializeComponent();
@@ -36,7 +40,15 @@ namespace MiffTheFox.Chiamo.Winforms
 
         private void _GameTimer_Tick(object sender, EventArgs e)
         {
-            _Game.Tick(new GameTickArgs());
+            var inputState = new InputState()
+            {
+                JoyButton = _Keys,
+                MouseButton = _MouseButtons,
+                MouseX = _MouseLocation.X,
+                MouseY = _MouseLocation.Y
+            };
+
+            _Game.Tick(new GameTickArgs() { Input = inputState });
 
             var gameImage = new Bitmap(_Game.Width, _Game.Height);
             var g = System.Drawing.Graphics.FromImage(gameImage);
@@ -59,6 +71,57 @@ namespace MiffTheFox.Chiamo.Winforms
         private void GameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _Game.Dispose();
+        }
+
+        private JoyButton _GetJoyButton(Keys k)
+        {
+            switch (k)
+            {
+                case Keys.Space: return JoyButton.Jump;
+                case Keys.ControlKey: return JoyButton.Action1;
+                case Keys.Alt: return JoyButton.Action2;
+                case Keys.Escape: return JoyButton.Menu;
+                case Keys.Up: return JoyButton.Up;
+                case Keys.Down: return JoyButton.Down;
+                case Keys.Left: return JoyButton.Left;
+                case Keys.Right: return JoyButton.Right;
+                default: return 0;
+            }
+        }
+
+        private MouseButton _GetMouseButton(MouseButtons button)
+        {
+            switch (button)
+            {
+                case MouseButtons.Left: return MouseButton.Left;
+                case MouseButtons.Right: return MouseButton.Right;
+                default: return 0;
+            }
+        }
+
+        private void GameForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            _Keys |= _GetJoyButton(e.KeyCode);
+        }
+
+        private void GameForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            _Keys &= ~_GetJoyButton(e.KeyCode);
+        }
+
+        private void GameForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            _MouseButtons |= _GetMouseButton(e.Button);
+        }
+
+        private void GameForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            _MouseButtons &= ~_GetMouseButton(e.Button);
+        }
+
+        private void GameForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            _MouseLocation = e.Location;
         }
     }
 }

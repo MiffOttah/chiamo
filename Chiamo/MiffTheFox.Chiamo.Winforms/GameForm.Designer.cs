@@ -53,6 +53,11 @@
             this.Text = "Chiamo";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameForm_FormClosed);
             this.Load += new System.EventHandler(this.GameForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GameForm_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GameForm_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GameForm_MouseUp);
             this.ResumeLayout(false);
 
         }

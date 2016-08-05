@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiffTheFox.Chiamo.Actors;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -35,7 +36,13 @@ namespace MiffTheFox.Chiamo
             ZIndex = 0;
         }
 
-        public virtual void Tick(GameTickArgs e, Scene s) { }
+        public virtual void Tick(GameTickArgs e, Scene s)
+        {
+            if (e.Input.MouseButton != MouseButton.None && this is IClickableActor && this.Bounds.Contains(e.Input.MouseX, e.Input.MouseY))
+            {
+                ((IClickableActor)this).Clicked(e, s);
+            }
+        }
 
         public abstract void Draw(GameDrawArgs e);
 
