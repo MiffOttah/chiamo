@@ -53,6 +53,7 @@
     <Compile Include="Graphics\Canvas.cs" />
     <Compile Include="Graphics\FontManager.cs" />
     <Compile Include="Graphics\SpriteManager.cs" />
+    <Compile Include="Graphics\OffsetCanvas.cs" />
     <Compile Include="InputState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />

@@ -11,6 +11,7 @@ namespace MiffTheFox.Chiamo.Actors
         public bool Grounded { get; protected set; } = false;
         public int Speed { get; set; } = 10;
         public int JumpVelocity { get; set; } = 20;
+        public bool CameraFollows { get; set; } = false;
 
         public PlayerActor(int width, int height) : base(width, height)
         {
@@ -35,6 +36,11 @@ namespace MiffTheFox.Chiamo.Actors
                     this.YMomentum = -JumpVelocity;
                     Grounded = false;
                 }
+            }
+
+            if (CameraFollows)
+            {
+                s.CameraFocus = new System.Drawing.Point(this.X + this.Width / 2, this.Y + this.Height / 2);
             }
 
             base.Tick(e, s);

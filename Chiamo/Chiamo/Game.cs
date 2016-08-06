@@ -70,6 +70,9 @@ namespace MiffTheFox.Chiamo
             Scenes.Push(scene);
 
             scene.Game = this;
+            scene.Width = this.Width;
+            scene.Height = this.Height;
+
             scene.Initalize();
         }
 

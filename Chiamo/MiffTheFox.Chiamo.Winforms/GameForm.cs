@@ -80,7 +80,7 @@ namespace MiffTheFox.Chiamo.Winforms
             {
                 case Keys.Space: return JoyButton.Jump;
                 case Keys.ControlKey: return JoyButton.Action1;
-                case Keys.Alt: return JoyButton.Action2;
+                case Keys.Shift: return JoyButton.Action2;
                 case Keys.Escape: return JoyButton.Menu;
                 case Keys.Up: return JoyButton.Up;
                 case Keys.Down: return JoyButton.Down;

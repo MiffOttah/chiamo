@@ -15,14 +15,14 @@ namespace MiffTheFox.Chiamo.Actors
         {
         }
 
-        private static CollisionType _CheckCollisionWithGameEdge(Game game, Rectangle hb)
+        private static CollisionType _CheckCollisionWithSceneEdge(Scene scene, Rectangle hb)
         {
             var ct = CollisionType.None;
 
             if (hb.Left < 0) ct |= CollisionType.Left;
-            if (hb.Right >= game.Width) ct |= CollisionType.Right;
+            if (hb.Right >= scene.Width) ct |= CollisionType.Right;
             if (hb.Top < 0) ct |= CollisionType.Top;
-            if (hb.Bottom >= game.Height) ct |= CollisionType.Bottom;
+            if (hb.Bottom >= scene.Height) ct |= CollisionType.Bottom;
 
             return ct;
         }
@@ -53,7 +53,7 @@ namespace MiffTheFox.Chiamo.Actors
         public CollisionType CollisionWithAnything(Scene scene)
         {
             var hb = this.HitBox;
-            return _CheckCollisionWithGameEdge(scene.Game, hb) | _CheckCollisionWithOtherActor(scene, hb);
+            return _CheckCollisionWithSceneEdge(scene, hb) | _CheckCollisionWithOtherActor(scene, hb);
         }
 
         public CollisionType PossibleCollisionWithAnything(Scene scene, int movementX, int movementY)
@@ -61,7 +61,7 @@ namespace MiffTheFox.Chiamo.Actors
             var hb = this.HitBox;
             var altHitbox = new Rectangle(hb.X + movementX, hb.Y + movementY, hb.Width, hb.Height);
 
-            return _CheckCollisionWithGameEdge(scene.Game, altHitbox) | _CheckCollisionWithOtherActor(scene, altHitbox);
+            return _CheckCollisionWithSceneEdge(scene, altHitbox) | _CheckCollisionWithOtherActor(scene, altHitbox);
         }
 
         public CollisionType TryMove(Scene s, int movementX, int movementY)
