@@ -34,10 +34,11 @@ namespace MiffTheFox.Chiamo
         public virtual void Draw(GameDrawArgs e)
         {
             var viewPort = new Rectangle(this.CameraFocus.X - Game.Width / 2, this.CameraFocus.Y - Game.Height / 2, Game.Width, Game.Height);
-            //while (viewPort.X < 0) viewPort.X++;
-            //while (viewPort.Right > Game.Width) viewPort.X--;
-            //while (viewPort.Y < 0) viewPort.Y++;
-            //while (viewPort.Bottom > Game.Width) viewPort.Y--;
+
+            if (viewPort.X < 0) viewPort.X = 0;
+            if (viewPort.Y < 0) viewPort.Y = 0;
+            if (viewPort.Right > Game.Width) viewPort.X = Game.Width - viewPort.Width;
+            if (viewPort.Bottom > Game.Height) viewPort.Y = Game.Height - viewPort.Height;
 
             var oc = new OffsetCanvas(e.Canvas, -viewPort.X, -viewPort.Y);
 

@@ -20,15 +20,12 @@ namespace ChHelloWorld
 
         public override void Initalize()
         {
-            this.Width = Game.Width * 2;
-            this.Height = Game.Height * 2;
-
             var player = new Player();
             player.X = (Game.Width - player.Width) / 2;
             player.Y = (Game.Height - player.Height) / 2;
             player.Gravity = GRAVITY;
             player.ZIndex = 10;
-            player.CameraFollows = true;
+            //player.CameraFollows = true;
             Actors.Add(player);
         }
 
