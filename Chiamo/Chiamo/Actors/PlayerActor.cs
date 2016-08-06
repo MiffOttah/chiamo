@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MiffTheFox.Chiamo.Actors
+{
+    public abstract class PlayerActor : GravityActor
+    {
+        public bool Grounded { get; protected set; } = false;
+        public int Speed { get; set; } = 10;
+        public int JumpVelocity { get; set; } = 20;
+
+        public PlayerActor(int width, int height) : base(width, height)
+        {
+        }
+
+        public override void Tick(GameTickArgs e, Scene s)
+        {
+            if (e.Input.JoyButton.HasFlag(JoyButton.Left))
+            {
+                this.TryMove(s, -Speed, 0);
+            }
+
+            if (e.Input.JoyButton.HasFlag(JoyButton.Right))
+            {
+                this.TryMove(s, Speed, 0);
+            }
+
+            if (e.Input.JoyButton.HasFlag(JoyButton.Jump))
+            {
+                if (Grounded)
+                {
+                    this.YMomentum = -JumpVelocity;
+                    Grounded = false;
+                }
+            }
+
+            base.Tick(e, s);
+        }
+
+        public override void OnCollision(GameTickArgs e, Scene s, CollisionType collision)
+        {
+            if (collision.HasFlag(CollisionType.Bottom)) Grounded = true;
+
+            base.OnCollision(e, s, collision);
+        }
+    }
+}

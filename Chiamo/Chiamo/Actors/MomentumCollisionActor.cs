@@ -19,19 +19,10 @@ namespace MiffTheFox.Chiamo.Actors
 
         public override void Tick(GameTickArgs e, Scene s)
         {
-            this.X += XMomentum;
-            this.Y += YMomentum;
-
-            int xmSign = Math.Sign(XMomentum);
-            int ymSign = Math.Sign(XMomentum);
-            //CollisionType hasCol = CollisionType.None;
-            //int overload = 0;
-            
-            var collision = this.CollisionWithGameEdge(e.Game) | this.CollisionWithOtherActor(s);
-
-            if (collision != CollisionType.None)
+            var col = TryMove(s, this.XMomentum, this.YMomentum);
+            if (col != CollisionType.None)
             {
-                OnCollision(e, s, collision);
+                OnCollision(e, s, col);
             }
 
             base.Tick(e, s);
@@ -39,6 +30,8 @@ namespace MiffTheFox.Chiamo.Actors
 
         public virtual void OnCollision(GameTickArgs e, Scene s, CollisionType collision)
         {
+            if (collision.HasFlag(CollisionType.Left) || collision.HasFlag(CollisionType.Right)) XMomentum = 0;
+            if (collision.HasFlag(CollisionType.Top) || collision.HasFlag(CollisionType.Bottom)) YMomentum = 0;
         }
     }
 }

@@ -16,9 +16,16 @@ namespace ChHelloWorld
     {
         bool _Clicked = false;
         Random _RNG = new Random();
+        const int GRAVITY = 2;
 
         public override void Initalize()
         {
+            var player = new Player();
+            player.X = (Game.Width - player.Width) / 2;
+            player.Y = (Game.Height - player.Height) / 2;
+            player.Gravity = GRAVITY;
+            player.ZIndex = 10;
+            Actors.Add(player);
         }
 
         public override void Tick(GameTickArgs e)
@@ -27,7 +34,7 @@ namespace ChHelloWorld
             {
                 if (!_Clicked)
                 {
-                    MomentumCollisionActor ball = _RNG.Next(2) == 0 ? (MomentumCollisionActor)(new Ball()) : (MomentumCollisionActor)(new GravityBall() { Gravity = 2 });
+                    MomentumCollisionActor ball = _RNG.Next(2) == 0 ? (MomentumCollisionActor)(new Ball()) : (MomentumCollisionActor)(new GravityBall() { Gravity = GRAVITY });
 
                     ball.X = e.Input.MouseX - 20;
                     ball.Y = e.Input.MouseY - 20;
