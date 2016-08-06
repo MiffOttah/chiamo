@@ -45,7 +45,7 @@ namespace ChHelloWorld
             else if (collision.HasFlag(CollisionType.Bottom))
             {
                 this.YMomentum = 0;
-                while (this.Y > 0 && (this.CollisionWithGameEdge(e.Game) == CollisionType.Bottom || this.CollisionWithOtherActor(s) == CollisionType.Bottom))
+                while (this.Y > 0 && this.CollisionWithAnything(s).HasFlag(CollisionType.Bottom))
                 {
                     this.Y--;
                 }

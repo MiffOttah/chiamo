@@ -15,12 +15,6 @@ namespace MiffTheFox.Chiamo.Actors
         {
         }
 
-        public CollisionType CollisionWithGameEdge(Game game)
-        {
-            var hb = this.HitBox;
-            return _CheckCollisionWithGameEdge(game, hb);
-        }
-
         private static CollisionType _CheckCollisionWithGameEdge(Game game, Rectangle hb)
         {
             var ct = CollisionType.None;
@@ -31,12 +25,6 @@ namespace MiffTheFox.Chiamo.Actors
             if (hb.Bottom >= game.Height) ct |= CollisionType.Bottom;
 
             return ct;
-        }
-
-        public CollisionType CollisionWithOtherActor(Scene scene)
-        {
-            var hb1 = this.HitBox;
-            return _CheckCollisionWithOtherActor(scene, hb1);
         }
 
         private CollisionType _CheckCollisionWithOtherActor(Scene scene, Rectangle hb1)
@@ -64,7 +52,8 @@ namespace MiffTheFox.Chiamo.Actors
 
         public CollisionType CollisionWithAnything(Scene scene)
         {
-            return this.CollisionWithGameEdge(scene.Game) | this.CollisionWithOtherActor(scene);
+            var hb = this.HitBox;
+            return _CheckCollisionWithGameEdge(scene.Game, hb) | _CheckCollisionWithOtherActor(scene, hb);
         }
 
         public CollisionType PossibleCollisionWithAnything(Scene scene, int movementX, int movementY)
