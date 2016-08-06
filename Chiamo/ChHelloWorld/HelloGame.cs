@@ -18,6 +18,8 @@ namespace ChHelloWorld
         {
             // Load sprites
             Sprites.AddSprite("ball", Properties.Resources.ball);
+            Sprites.AddSprite("ball2", Properties.Resources.ball2);
+            Sprites.AddSprite("testplayer", Properties.Resources.testplayer);
 
             // Load fonts
             Fonts.AddFont("ArchitectsDaughter", Properties.Resources.ArchitectsDaughter);

@@ -36,7 +36,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BallActor.cs" />
+    <Compile Include="Ball.cs" />
+    <Compile Include="GravityBall.cs" />
     <Compile Include="HelloGame.cs" />
     <Compile Include="HelloScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,12 @@
   <ItemGroup>
     <None Include="Resources\ArchitectsDaughter.ttf" />
     <None Include="Resources\ball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\testplayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ball2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

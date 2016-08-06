@@ -41,11 +41,11 @@ namespace MiffTheFox.Chiamo.Actors
                 {
                     if (isect.Height > isect.Width)
                     {
-                        return hb1.X < hb2.X ? CollisionType.Left : CollisionType.Right;
+                        return hb1.X < hb2.X ? CollisionType.Right : CollisionType.Left;
                     }
                     else
                     {
-                        return hb1.Y < hb2.Y ? CollisionType.Top : CollisionType.Bottom;
+                        return hb1.Y < hb2.Y ? CollisionType.Bottom : CollisionType.Top;
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using MiffTheFox.Chiamo;
+using MiffTheFox.Chiamo.Actors;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,13 +27,14 @@ namespace ChHelloWorld
             {
                 if (!_Clicked)
                 {
-                    Actors.Add(new BallActor()
-                    {
-                        X = e.Input.MouseX - 20,
-                        Y = e.Input.MouseY - 20,
-                        XMomentum = _RNG.Next(-1, 2) * 10,
-                        YMomentum = _RNG.Next(-1, 2) * 10
-                    });
+                    MomentumCollisionActor ball = _RNG.Next(2) == 0 ? (MomentumCollisionActor)(new Ball()) : (MomentumCollisionActor)(new GravityBall() { Gravity = 2 });
+
+                    ball.X = e.Input.MouseX - 20;
+                    ball.Y = e.Input.MouseY - 20;
+                    ball.XMomentum = _RNG.Next(-1, 2) * 10;
+                    ball.YMomentum = _RNG.Next(-1, 2) * 10;
+
+                    Actors.Add(ball);
                     _Clicked = true;
                 }
             }
@@ -44,7 +46,7 @@ namespace ChHelloWorld
             // press the menu button (escape) to remove all balls
             if (e.Input.JoyButton.HasFlag(JoyButton.Menu))
             {
-                foreach (var actor in Actors.Where(_ => _ is BallActor).ToArray())
+                foreach (var actor in Actors.Where(_ => _ is Ball || _ is GravityBall).ToArray())
                 {
                     Actors.Remove(actor);
                 }

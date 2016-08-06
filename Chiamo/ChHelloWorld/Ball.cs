@@ -1,17 +1,12 @@
 ﻿using MiffTheFox.Chiamo;
 using MiffTheFox.Chiamo.Actors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace ChHelloWorld
 {
-    public class BallActor : MomentumCollisionActor, IClickableActor
+    public class Ball : MomentumCollisionActor, IClickableActor
     {
-        public BallActor() : base(40, 40)
+        public Ball() : base(40, 40)
         {
         }
 
