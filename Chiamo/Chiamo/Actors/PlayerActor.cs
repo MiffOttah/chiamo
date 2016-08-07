@@ -12,6 +12,7 @@ namespace MiffTheFox.Chiamo.Actors
         public int Speed { get; set; } = 10;
         public int JumpVelocity { get; set; } = 20;
         public bool CameraFollows { get; set; } = false;
+        public PlayerFacing Facing { get; set; } = PlayerFacing.Right;
 
         public PlayerActor(int width, int height) : base(width, height)
         {
@@ -21,11 +22,13 @@ namespace MiffTheFox.Chiamo.Actors
         {
             if (e.Input.JoyButton.HasFlag(JoyButton.Left))
             {
+                Facing = PlayerFacing.Left;
                 this.TryMove(s, -Speed, 0);
             }
 
             if (e.Input.JoyButton.HasFlag(JoyButton.Right))
             {
+                Facing = PlayerFacing.Right;
                 this.TryMove(s, Speed, 0);
             }
 
@@ -52,5 +55,11 @@ namespace MiffTheFox.Chiamo.Actors
 
             base.OnCollision(e, s, collision);
         }
+    }
+
+    public enum PlayerFacing
+    {
+        Right = 0,
+        Left = 1
     }
 }

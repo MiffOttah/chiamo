@@ -18,6 +18,7 @@ namespace MiffTheFox.Chiamo
         public Point CameraFocus { get; set; }
 
         public ActorCollection Actors { get; private set; } = new ActorCollection();
+        public TileMapCollection TileMaps { get; private set; } = new TileMapCollection();
 
         public event EventHandler Popped;
 
@@ -37,16 +38,41 @@ namespace MiffTheFox.Chiamo
 
             if (viewPort.X < 0) viewPort.X = 0;
             if (viewPort.Y < 0) viewPort.Y = 0;
-            if (viewPort.Right > Game.Width) viewPort.X = Game.Width - viewPort.Width;
-            if (viewPort.Bottom > Game.Height) viewPort.Y = Game.Height - viewPort.Height;
+            if (viewPort.Right > this.Width) viewPort.X = this.Width - viewPort.Width;
+            if (viewPort.Bottom > this.Height) viewPort.Y = this.Height - viewPort.Height;
 
             var oc = new OffsetCanvas(e.Canvas, -viewPort.X, -viewPort.Y);
+            var oa = new GameDrawArgs(oc) { Game = e.Game };
+
+            foreach (var tm in TileMaps)
+            {
+                Rectangle tileDrawRegion = new Rectangle(
+                    viewPort.X - tm.Tileset.TileWidth,
+                    viewPort.Y - tm.Tileset.TileHeight,
+                    viewPort.Width + tm.Tileset.TileWidth * 2,
+                    viewPort.Height + tm.Tileset.TileHeight * 2
+                );
+
+                for (int i = 0; i < tm.Width; i++)
+                {
+                    for (int j = 0; j < tm.Height; j++)
+                    {
+                        int canvasX = i * tm.Tileset.TileWidth;
+                        int canvasY = j * tm.Tileset.TileHeight;
+
+                        if (tileDrawRegion.Contains(canvasX, canvasY))
+                        {
+                            tm.Tileset.DrawTitle(oa, canvasX, canvasY, tm[i, j]);
+                        }
+                    }
+                }
+            }
 
             foreach (var actor in Actors.OrderBy(_ => _.ZIndex).ToArray())
             {
                 if (actor.Bounds.IntersectsWith(viewPort))
                 {
-                    actor.Draw(new GameDrawArgs(oc) { Game = e.Game });
+                    actor.Draw(oa);
                 }
             }
         }

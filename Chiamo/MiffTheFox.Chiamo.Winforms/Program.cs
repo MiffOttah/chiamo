@@ -16,7 +16,7 @@ namespace MiffTheFox.Chiamo.Winforms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameForm(new ChHelloWorld.HelloGame()));
+            Application.Run(new GameForm(new PlatformExample.PxGame()));
         }
     }
 }

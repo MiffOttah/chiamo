@@ -50,10 +50,40 @@ namespace MiffTheFox.Chiamo.Actors
             return CollisionType.None;
         }
 
+        private CollisionType _CheckCollisionWithTilemap(Scene scene, Rectangle hb)
+        {
+            foreach (var tm in scene.TileMaps)
+            {
+                var tcol = CollisionType.None;
+
+                // check the tiles around the edges of the actor
+                for (int i = hb.Left; i <= hb.Right; i++)
+                {
+                    tcol |= _CheckCollisionWithTileAt(i, hb.Top, tm, CollisionType.Top);
+                    tcol |= _CheckCollisionWithTileAt(i, hb.Bottom, tm, CollisionType.Bottom);
+                }
+                for (int i = hb.Top; i <= hb.Bottom; i++)
+                {
+                    tcol |= _CheckCollisionWithTileAt(hb.Left, i, tm, CollisionType.Top);
+                    tcol |= _CheckCollisionWithTileAt(hb.Right, i, tm, CollisionType.Bottom);
+                }
+
+                if (tcol != CollisionType.None) return tcol;
+            }
+
+            return CollisionType.None;
+        }
+
+        private CollisionType _CheckCollisionWithTileAt(int x, int y, TileMap tm, CollisionType checking)
+        {
+            var t = tm.GetTileAtSceneCoords(x, y);
+            return tm.Tileset.IsTilePassable(t) ? CollisionType.None : checking;
+        }
+
         public CollisionType CollisionWithAnything(Scene scene)
         {
             var hb = this.HitBox;
-            return _CheckCollisionWithSceneEdge(scene, hb) | _CheckCollisionWithOtherActor(scene, hb);
+            return _CheckCollisionWithSceneEdge(scene, hb) | _CheckCollisionWithOtherActor(scene, hb) | _CheckCollisionWithTilemap(scene, hb);
         }
 
         public CollisionType PossibleCollisionWithAnything(Scene scene, int movementX, int movementY)
@@ -61,7 +91,7 @@ namespace MiffTheFox.Chiamo.Actors
             var hb = this.HitBox;
             var altHitbox = new Rectangle(hb.X + movementX, hb.Y + movementY, hb.Width, hb.Height);
 
-            return _CheckCollisionWithSceneEdge(scene, altHitbox) | _CheckCollisionWithOtherActor(scene, altHitbox);
+            return _CheckCollisionWithSceneEdge(scene, altHitbox) | _CheckCollisionWithOtherActor(scene, altHitbox) | _CheckCollisionWithTilemap(scene, altHitbox);
         }
 
         public CollisionType TryMove(Scene s, int movementX, int movementY)

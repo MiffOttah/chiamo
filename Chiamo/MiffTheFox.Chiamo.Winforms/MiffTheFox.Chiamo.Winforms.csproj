@@ -91,6 +91,10 @@
       <Project>{bcc9b60b-a7f8-42f8-b428-bdd00fce05ee}</Project>
       <Name>Chiamo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlatformExample\PlatformExample.csproj">
+      <Project>{6cb29df1-52c7-47f6-9290-53c081d198fc}</Project>
+      <Name>PlatformExample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
