@@ -55,5 +55,16 @@ namespace PlatformExample
 
             TileMaps.Add(tilemap);
         }
+
+        public override void Tick(GameTickArgs e)
+        {
+            if (e.Input.JoyButton == JoyButton.Menu)
+            {
+                Game.PopScene();
+                Game.PushScene(new TitleScreen());
+            }
+
+            base.Tick(e);
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace PlatformExample
             // Are we stomping on the enemy?
             if (collision.HasFlag(CollisionWith.Actor) && collision.OtherActor is Enemy && collision.HasFlag(CollisionEdge.Bottom))
             {
-                this.YMomentum = this.JumpVelocity;
+                this.YMomentum = -JumpVelocity;
                 s.Actors.Remove(collision.OtherActor);
             }
 
