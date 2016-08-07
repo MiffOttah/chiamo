@@ -27,5 +27,17 @@ namespace PlatformExample
 
             base.Tick(e, s);
         }
+
+        public override void OnCollision(GameTickArgs e, Scene s, CollisionInfo collision)
+        {
+            // Are we stomping on the enemy?
+            if (collision.HasFlag(CollisionWith.Actor) && collision.OtherActor is Enemy && collision.HasFlag(CollisionEdge.Bottom))
+            {
+                this.YMomentum = this.JumpVelocity;
+                s.Actors.Remove(collision.OtherActor);
+            }
+
+            base.OnCollision(e, s, collision);
+        }
     }
 }

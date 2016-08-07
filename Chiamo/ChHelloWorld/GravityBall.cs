@@ -31,21 +31,21 @@ namespace ChHelloWorld
             this.DrawSprite(e, "ball2");
         }
 
-        public override void OnCollision(GameTickArgs e, Scene s, CollisionType collision)
+        public override void OnCollision(GameTickArgs e, Scene s, CollisionInfo collision)
         {
-            if (collision.HasFlag(CollisionType.Left) || collision.HasFlag(CollisionType.Right))
+            if (collision.HasFlag(CollisionEdge.Left) || collision.HasFlag(CollisionEdge.Right))
             {
                 this.XMomentum *= -1;
             }
 
-            if (collision.HasFlag(CollisionType.Top))
+            if (collision.HasFlag(CollisionEdge.Top))
             {
                 this.YMomentum *= -1;
             }
-            else if (collision.HasFlag(CollisionType.Bottom))
+            else if (collision.HasFlag(CollisionEdge.Bottom))
             {
                 this.YMomentum = 0;
-                while (this.Y > 0 && this.CollisionWithAnything(s).HasFlag(CollisionType.Bottom))
+                while (this.Y > 0 && this.CollisionWithAnything(s).HasFlag(CollisionEdge.Bottom))
                 {
                     this.Y--;
                 }

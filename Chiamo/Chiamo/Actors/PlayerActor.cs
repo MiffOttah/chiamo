@@ -49,9 +49,9 @@ namespace MiffTheFox.Chiamo.Actors
             base.Tick(e, s);
         }
 
-        public override void OnCollision(GameTickArgs e, Scene s, CollisionType collision)
+        public override void OnCollision(GameTickArgs e, Scene s, CollisionInfo collision)
         {
-            if (collision.HasFlag(CollisionType.Bottom)) Grounded = true;
+            if (collision.HasFlag(CollisionEdge.Bottom)) Grounded = true;
 
             base.OnCollision(e, s, collision);
         }

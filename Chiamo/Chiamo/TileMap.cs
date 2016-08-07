@@ -31,10 +31,12 @@ namespace MiffTheFox.Chiamo
         {
             get
             {
+                if (x < 0 || y < 0 || x >= Width || y >= Height) return 0;
                 return _TilemapData[x, y];
             }
             set
             {
+                if (x < 0 || y < 0 || x >= Width || y >= Height) return;
                 _TilemapData[x, y] = value;
             }
         }
