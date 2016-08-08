@@ -27,7 +27,14 @@ namespace MiffTheFox.Chiamo
 
             e.Canvas.DrawSprite(si, canvasX, canvasY, TileWidth, TileHeight, row, col);
         }
+        
+        public abstract TileType GetTileType(byte tileId);
+    }
 
-        public abstract bool IsTilePassable(byte tileId);
+    public enum TileType
+    {
+        Background = 0,
+        Wall = 1,
+        Ladder = 2
     }
 }

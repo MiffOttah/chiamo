@@ -21,15 +21,18 @@ namespace PlatformExample
         {
         }
 
-        public override bool IsTilePassable(byte tileId)
+        public override TileType GetTileType(byte tileId)
         {
             switch ((Tile)tileId)
             {
                 case Tile.Sky:
+                    return TileType.Background;
+
                 case Tile.Ladder:
-                    return true;
+                    return TileType.Ladder;
+
                 default:
-                    return false;
+                    return TileType.Wall;
             }
         }
     }

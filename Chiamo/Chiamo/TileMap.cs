@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace MiffTheFox.Chiamo
 {
@@ -46,6 +49,23 @@ namespace MiffTheFox.Chiamo
             int tx = x / Tileset.TileWidth;
             int ty = y / Tileset.TileHeight;
             return this[tx, ty];
+        }
+
+        public byte[] GetTilesAtSceneRect(Rectangle rect)
+        {
+            var tiles = new HashSet<byte>();
+            var skipX = this.Tileset.TileWidth / 2;
+            var skipY = this.Tileset.TileHeight / 2;
+
+            for (int x = rect.Left; x <= rect.Right; x += skipX)
+            {
+                for (int y = rect.Top; y <= rect.Bottom; y += skipY)
+                {
+                    tiles.Add(GetTileAtSceneCoords(x, y));
+                }
+            }
+
+            return tiles.ToArray();
         }
     }
     

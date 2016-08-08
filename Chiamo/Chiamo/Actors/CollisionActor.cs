@@ -79,7 +79,7 @@ namespace MiffTheFox.Chiamo.Actors
         private CollisionEdge _CheckCollisionWithTileAt(int x, int y, TileMap tm, CollisionEdge checking)
         {
             var t = tm.GetTileAtSceneCoords(x, y);
-            return tm.Tileset.IsTilePassable(t) ? CollisionEdge.None : checking;
+            return tm.Tileset.GetTileType(t) != TileType.Wall ? CollisionEdge.None : checking;
         }
 
         private CollisionInfo _CollisionWithAnything(Scene scene, Rectangle hb)

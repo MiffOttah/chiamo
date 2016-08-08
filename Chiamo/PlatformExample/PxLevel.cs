@@ -51,6 +51,10 @@ namespace PlatformExample
                     case "Coin":
                         Actors.Add(new Coin { X = o.X, Y = o.Y });
                         break;
+
+                    case "EndCastle":
+                        Actors.Add(new EndCastle { X = o.X, Y = o.Y });
+                        break;
                 }
             });
 

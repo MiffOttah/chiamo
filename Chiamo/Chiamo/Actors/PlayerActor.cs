@@ -20,6 +20,25 @@ namespace MiffTheFox.Chiamo.Actors
 
         public override void Tick(GameTickArgs e, Scene s)
         {
+            bool ladder = false;
+            foreach (var tm in s.TileMaps)
+            {
+                if (tm.GetTilesAtSceneRect(this.HitBox).Any(_ => tm.Tileset.GetTileType(_) == TileType.Ladder))
+                {
+                    ladder = true;
+                    break;
+                }
+            }
+
+            if (ladder && e.Input.JoyButton.HasFlag(JoyButton.Up))
+            {
+                this.TryMove(s, 0, -Speed);
+            }
+            if (ladder && e.Input.JoyButton.HasFlag(JoyButton.Down))
+            {
+                this.TryMove(s, 0, Speed);
+            }
+
             if (e.Input.JoyButton.HasFlag(JoyButton.Left))
             {
                 Facing = PlayerFacing.Left;
@@ -41,12 +60,16 @@ namespace MiffTheFox.Chiamo.Actors
                 }
             }
 
+            // update camera position if following this player
             if (CameraFollows)
             {
                 s.CameraFocus = new System.Drawing.Point(this.X + this.Width / 2, this.Y + this.Height / 2);
             }
 
-            base.Tick(e, s);
+            if (!ladder)
+            {
+                base.Tick(e, s);
+            }
         }
 
         public override void OnCollision(Scene s, CollisionInfo collision)
