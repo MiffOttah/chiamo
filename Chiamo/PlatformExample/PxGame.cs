@@ -20,6 +20,7 @@ namespace PlatformExample
             Sprites.AddSprite("Enemy", Properties.Resources.enemy);
             Sprites.AddSprite("Tiles", Properties.Resources.tiles);
             Sprites.AddSprite("Title", Properties.Resources.title);
+            Sprites.AddSprite("EndGame", Properties.Resources.endgame);
             Sprites.AddSprite("EndCastle", Properties.Resources.endcastle);
 
             PushScene(new TitleScreen());

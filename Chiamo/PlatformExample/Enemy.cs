@@ -24,9 +24,11 @@ namespace PlatformExample
         {
             if (collision.HasFlag(CollisionWith.Actor) && collision.OtherActor is Player)
             {
+                int score = s is PxLevel ? ((PxLevel)s).Score : 0;
+
                 // kill the player
                 s.Game.PopScene();
-                s.Game.PushScene(new TitleScreen());
+                s.Game.PushScene(new GameOverScreen(false, score));
             }
             else if (collision.HasFlag(CollisionEdge.Left) || collision.HasFlag(CollisionEdge.Right))
             {

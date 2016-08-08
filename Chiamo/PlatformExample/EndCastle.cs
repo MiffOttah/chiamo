@@ -21,7 +21,10 @@ namespace PlatformExample
 
         public override void OnPickUp(Scene s, Actor player)
         {
-            throw new NotImplementedException();
+            int score = s is PxLevel ? ((PxLevel)s).Score : 0;
+
+            s.Game.PopScene();
+            s.Game.PushScene(new GameOverScreen(true, score));
         }
     }
 }
