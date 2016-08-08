@@ -137,7 +137,26 @@ namespace MiffTheFox.Chiamo.Actors
                 }
             }
 
-            return collision1 | collision2;
+            var col = collision1 | collision2;
+
+            if (col.HasCollision)
+            {
+                OnCollision(s, col);
+                if (col.HasFlag(CollisionWith.Actor) && col.OtherActor is CollisionActor)
+                {
+                    ((CollisionActor)col.OtherActor).OnHitByMovingActor(s, col, this);
+                }
+            }
+
+            return col;
+        }
+
+        public virtual void OnCollision(Scene s, CollisionInfo collision)
+        {
+        }
+
+        public virtual void OnHitByMovingActor(Scene s, CollisionInfo otherActorCollisionInfo, Actor otherActor)
+        {
         }
     }
 
@@ -197,6 +216,18 @@ namespace MiffTheFox.Chiamo.Actors
         public bool HasFlag(CollisionWith with)
         {
             return With.HasFlag(with);
+        }
+
+        public override string ToString()
+        {
+            if (Edge == CollisionEdge.None || With == CollisionWith.None)
+            {
+                return "Collision: None";
+            }
+            else
+            {
+                return $"Collision: {With} / {Edge}";
+            }
         }
     }
 }

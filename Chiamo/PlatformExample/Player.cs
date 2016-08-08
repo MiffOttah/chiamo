@@ -28,7 +28,7 @@ namespace PlatformExample
             base.Tick(e, s);
         }
 
-        public override void OnCollision(GameTickArgs e, Scene s, CollisionInfo collision)
+        public override void OnCollision(Scene s, CollisionInfo collision)
         {
             // Are we stomping on the enemy?
             if (collision.HasFlag(CollisionWith.Actor) && collision.OtherActor is Enemy && collision.HasFlag(CollisionEdge.Bottom))
@@ -39,7 +39,7 @@ namespace PlatformExample
                 if (s is PxLevel) ((PxLevel)s).Score += 10;
             }
 
-            base.OnCollision(e, s, collision);
+            base.OnCollision(s, collision);
         }
     }
 }

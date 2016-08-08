@@ -47,6 +47,10 @@ namespace PlatformExample
                     case "Enemy":
                         Actors.Add(new Enemy { X = o.X, Y = o.Y, XMomentum = 10, Gravity = GRAVITY });
                         break;
+
+                    case "Coin":
+                        Actors.Add(new Coin { X = o.X, Y = o.Y });
+                        break;
                 }
             });
 

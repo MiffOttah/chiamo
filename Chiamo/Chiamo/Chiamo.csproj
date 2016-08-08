@@ -47,6 +47,7 @@
     <Compile Include="Actors\GravityActor.cs" />
     <Compile Include="Actors\IClickableActor.cs" />
     <Compile Include="Actors\MomentumCollisionActor.cs" />
+    <Compile Include="Actors\PickUpActor.cs" />
     <Compile Include="Actors\PlayerActor.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Game.cs" />

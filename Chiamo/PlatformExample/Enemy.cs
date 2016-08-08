@@ -20,13 +20,13 @@ namespace PlatformExample
         }
 
 
-        public override void OnCollision(GameTickArgs e, Scene s, CollisionInfo collision)
+        public override void OnCollision(Scene s, CollisionInfo collision)
         {
             if (collision.HasFlag(CollisionWith.Actor) && collision.OtherActor is Player)
             {
                 // kill the player
-                e.Game.PopScene();
-                e.Game.PushScene(new TitleScreen());
+                s.Game.PopScene();
+                s.Game.PushScene(new TitleScreen());
             }
             else if (collision.HasFlag(CollisionEdge.Left) || collision.HasFlag(CollisionEdge.Right))
             {
