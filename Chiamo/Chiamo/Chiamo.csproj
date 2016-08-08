@@ -60,6 +60,9 @@
     <Compile Include="InputState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="TMX\TmxObjectInfo.cs" />
+    <Compile Include="TMX\TmxParseException.cs" />
+    <Compile Include="TMX\TmxParser.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

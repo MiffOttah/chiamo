@@ -11,7 +11,8 @@ namespace PlatformExample
     {
         Sky = 0,
         Wall = 1,
-        Pipe = 2
+        Pipe = 2,
+        Ladder = 3
     }
 
     public class PxTileset : Tileset
@@ -24,8 +25,11 @@ namespace PlatformExample
         {
             switch ((Tile)tileId)
             {
-                case Tile.Sky: return true;
-                default: return false;
+                case Tile.Sky:
+                case Tile.Ladder:
+                    return true;
+                default:
+                    return false;
             }
         }
     }

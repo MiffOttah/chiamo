@@ -1,6 +1,8 @@
 ﻿using MiffTheFox.Chiamo;
+using MiffTheFox.Chiamo.TMX;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,8 @@ namespace PlatformExample
         const int TILE_H = 20;
 
         const int GRAVITY = 2;
+
+        public int Score { get; set; } = 0;
 
         public override void Initalize()
         {
@@ -29,29 +33,22 @@ namespace PlatformExample
 
             var tilemap = new TileMap(new PxTileset(), TILE_W, TILE_H);
 
-            // fill the bottom of the map with bricks
-            for (int j = TILE_H - 3; j < TILE_H; j++)
+            var tmx = new TmxParser(Properties.Resources.level1);
+            tmx.ParseTileLayer("Tile Layer 1", tilemap);
+            tmx.ParseObjectLayer("Object Layer 1", o =>
             {
-                for (int i = 0; i < TILE_W; i++)
+                switch (o.Name)
                 {
-                    tilemap[i, j] = 1;
-                }
-            }
+                    case "Player":
+                        player.X = o.X;
+                        player.Y = o.Y;
+                        break;
 
-            // create a "stair" shape
-            for (int x = 6; x < 16; x++)
-            {
-                for (int y = TILE_H - 3; y > TILE_H - (x - 3); y--)
-                {
-                    tilemap[x, y] = 1;
+                    case "Enemy":
+                        Actors.Add(new Enemy { X = o.X, Y = o.Y, XMomentum = 10, Gravity = GRAVITY });
+                        break;
                 }
-            }
-
-            // now put pipes and an enemy
-            tilemap[24, TILE_H - 4] = 2;
-            tilemap[34, TILE_H - 4] = 2;
-            var enemy = new Enemy() { X = 1090, Y = 600, Gravity = GRAVITY, XMomentum = 5 };
-            this.Actors.Add(enemy);
+            });
 
             TileMaps.Add(tilemap);
         }
@@ -65,6 +62,13 @@ namespace PlatformExample
             }
 
             base.Tick(e);
+        }
+
+        public override void Draw(GameDrawArgs e)
+        {
+            base.Draw(e);
+
+            e.Canvas.DrawString(Game.Fonts["sans-serif"], $"Score: {Score}", Color.Black, 22, 0, 0, 300, 100, false, false, StringAlignment.Near, StringAlignment.Near);
         }
     }
 }

@@ -35,6 +35,8 @@ namespace PlatformExample
             {
                 this.YMomentum = -JumpVelocity;
                 s.Actors.Remove(collision.OtherActor);
+
+                if (s is PxLevel) ((PxLevel)s).Score += 10;
             }
 
             base.OnCollision(e, s, collision);
