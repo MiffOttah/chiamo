@@ -49,6 +49,7 @@
     <Compile Include="Actors\MomentumCollisionActor.cs" />
     <Compile Include="Actors\PickUpActor.cs" />
     <Compile Include="Actors\PlayerActor.cs" />
+    <Compile Include="ChiamoFrontendLauncher.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Canvas.cs" />

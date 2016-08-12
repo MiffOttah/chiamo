@@ -14,6 +14,7 @@ namespace MiffTheFox.Chiamo
         public string Title { get; private set; }
 
         public int TargetTimerSpeed { get; private set; }
+        public bool ExitRequested { get; private set; }
 
         public SpriteManager Sprites { get; set; }
         public FontManager Fonts { get; set; }
@@ -80,6 +81,11 @@ namespace MiffTheFox.Chiamo
         {
             var s = Scenes.Pop();
             s.OnPopped();
+        }
+
+        public void Exit()
+        {
+            ExitRequested = true;
         }
     }
 }

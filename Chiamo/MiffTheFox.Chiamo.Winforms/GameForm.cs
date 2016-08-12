@@ -67,6 +67,11 @@ namespace MiffTheFox.Chiamo.Winforms
             var oldImage = this.BackgroundImage;
             this.BackgroundImage = gameImage;
             if (oldImage != null) oldImage.Dispose();
+
+            if (_Game.ExitRequested)
+            {
+                this.Close();
+            }
         }
 
         private void GameForm_FormClosed(object sender, FormClosedEventArgs e)
