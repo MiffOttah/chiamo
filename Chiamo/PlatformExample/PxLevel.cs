@@ -59,6 +59,8 @@ namespace PlatformExample
             });
 
             TileMaps.Add(tilemap);
+
+            Game.Music.PlaySong("Theme");
         }
 
         public override void Tick(GameTickArgs e)

@@ -48,6 +48,9 @@ namespace MiffTheFox.Chiamo.SDL
             _Game.Fonts.AddFont("serif", Properties.Resources.VeraSe);
             _Game.Fonts.AddFont("monospace", Properties.Resources.VeraMono);
 
+            _Game.Music = new SdlMusicManager();
+            ((SdlMusicManager)_Game.Music).Initalize();
+
             _Game.Initalize();
             Events.Run();
         }

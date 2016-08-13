@@ -18,6 +18,7 @@ namespace MiffTheFox.Chiamo
 
         public SpriteManager Sprites { get; set; }
         public FontManager Fonts { get; set; }
+        public Audio.MusicManager Music { get; set; }
 
         protected Stack<Scene> Scenes = new Stack<Scene>();
 
@@ -63,6 +64,14 @@ namespace MiffTheFox.Chiamo
             if (Sprites != null)
             {
                 Sprites.Dispose();
+            }
+            if (Fonts != null)
+            {
+                Sprites.Dispose();
+            }
+            if (Music != null)
+            {
+                Music.Dispose();
             }
         }
 

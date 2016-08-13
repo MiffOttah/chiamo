@@ -74,6 +74,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\chiamo_platformexample_theme.ogg" />
     <None Include="Resources\coin.png" />
   </ItemGroup>
   <ItemGroup>

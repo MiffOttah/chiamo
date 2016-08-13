@@ -21,6 +21,7 @@ namespace PlatformExample
 
         public override void Initalize()
         {
+            Game.Music.PlaySong(null);
         }
 
         public override void Draw(GameDrawArgs e)
