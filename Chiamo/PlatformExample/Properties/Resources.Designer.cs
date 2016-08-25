@@ -61,6 +61,15 @@ namespace PlatformExample.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream cash_register_purchase {
+            get {
+                return ResourceManager.GetStream("cash_register_purchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] chiamo_platformexample_theme {
@@ -107,6 +116,15 @@ namespace PlatformExample.Properties {
             get {
                 object obj = ResourceManager.GetObject("enemy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream jump02 {
+            get {
+                return ResourceManager.GetStream("jump02", resourceCulture);
             }
         }
         

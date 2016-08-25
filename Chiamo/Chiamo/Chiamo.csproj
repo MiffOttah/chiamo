@@ -50,6 +50,8 @@
     <Compile Include="Actors\PickUpActor.cs" />
     <Compile Include="Actors\PlayerActor.cs" />
     <Compile Include="Audio\MusicManager.cs" />
+    <Compile Include="Audio\SoundManager.cs" />
+    <Compile Include="Audio\StreamUnpacker.cs" />
     <Compile Include="ChiamoFrontendLauncher.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Game.cs" />

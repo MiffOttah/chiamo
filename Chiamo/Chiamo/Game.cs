@@ -1,9 +1,6 @@
 ﻿using MiffTheFox.Chiamo.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiffTheFox.Chiamo
 {
@@ -19,6 +16,7 @@ namespace MiffTheFox.Chiamo
         public SpriteManager Sprites { get; set; }
         public FontManager Fonts { get; set; }
         public Audio.MusicManager Music { get; set; }
+        public Audio.SoundManager Sounds { get; set; }
 
         protected Stack<Scene> Scenes = new Stack<Scene>();
 

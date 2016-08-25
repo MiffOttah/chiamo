@@ -41,5 +41,12 @@ namespace PlatformExample
 
             base.OnCollision(s, collision);
         }
+
+        protected override void Jump(Scene s)
+        {
+            s.Game.Sounds?.PlaySound("Jump");
+
+            base.Jump(s);
+        }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="SdlCanvas.cs" />
     <Compile Include="SdlFontManager.cs" />
     <Compile Include="SdlMusicManager.cs" />
+    <Compile Include="SdlSoundManager.cs" />
     <Compile Include="SdlSpriteManager.cs" />
   </ItemGroup>
   <ItemGroup>

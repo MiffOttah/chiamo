@@ -26,6 +26,8 @@ namespace PlatformExample
             {
                 ((PxLevel)s).Score += 15;
             }
+
+            s.Game.Sounds?.PlaySound("Coin");
         }
     }
 }

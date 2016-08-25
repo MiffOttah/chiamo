@@ -23,7 +23,10 @@ namespace PlatformExample
             Sprites.AddSprite("EndGame", Properties.Resources.endgame);
             Sprites.AddSprite("EndCastle", Properties.Resources.endcastle);
 
-            Music.AddSong("Theme", Properties.Resources.chiamo_platformexample_theme);
+            Music?.AddSong("Theme", Properties.Resources.chiamo_platformexample_theme);
+
+            Sounds?.AddSound("Jump", Properties.Resources.jump02);
+            Sounds?.AddSound("Coin", Properties.Resources.cash_register_purchase);
 
             PushScene(new TitleScreen());
         }

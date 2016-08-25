@@ -55,8 +55,7 @@ namespace MiffTheFox.Chiamo.Actors
             {
                 if (Grounded)
                 {
-                    this.YMomentum = -JumpVelocity;
-                    Grounded = false;
+                    Jump(s);
                 }
             }
 
@@ -70,6 +69,12 @@ namespace MiffTheFox.Chiamo.Actors
             {
                 base.Tick(e, s);
             }
+        }
+
+        protected virtual void Jump(Scene s)
+        {
+            YMomentum = -JumpVelocity;
+            Grounded = false;
         }
 
         public override void OnCollision(Scene s, CollisionInfo collision)

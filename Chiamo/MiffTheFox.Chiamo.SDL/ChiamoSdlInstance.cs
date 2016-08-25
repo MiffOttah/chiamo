@@ -50,6 +50,7 @@ namespace MiffTheFox.Chiamo.SDL
 
             _Game.Music = new SdlMusicManager();
             ((SdlMusicManager)_Game.Music).Initalize();
+            _Game.Sounds = new SdlSoundManager();
 
             _Game.Initalize();
             Events.Run();
