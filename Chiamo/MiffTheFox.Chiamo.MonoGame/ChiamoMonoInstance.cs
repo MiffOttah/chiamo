@@ -11,9 +11,10 @@ namespace MiffTheFox.Chiamo.MonoGame
     /// </summary>
     public class ChiamoMonoInstance : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager _Graphics;
-        SpriteBatch _SpriteBatch;
+        private GraphicsDeviceManager _Graphics;
+        private SpriteBatch _SpriteBatch;
         private readonly CGame _Game;
+        private XFontManager _FontManager;
 
         //public GraphicsDevice ChiamoGraphicsDevice => _Graphics.GraphicsDevice;
 
@@ -52,8 +53,10 @@ namespace MiffTheFox.Chiamo.MonoGame
             _SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             _Game.Sprites = new XSpriteManager(this);
-            _Game.Fonts = new XFontManager(this);
+            _Game.Fonts = _FontManager = new XFontManager(this);
             _Game.Initalize();
+
+            _Game.SceneChanged += (sender, e) => _FontManager.ClearStringCache();
         }
 
         /// <summary>
@@ -72,8 +75,6 @@ namespace MiffTheFox.Chiamo.MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();.
-
             var gamePadState = GamePad.GetState(PlayerIndex.One);
             var keyboardState = Keyboard.GetState();
             var mouseState = Mouse.GetState();
@@ -99,11 +100,13 @@ namespace MiffTheFox.Chiamo.MonoGame
             chInputState.MouseY = mouseState.Y;
 
             _Game.Tick(new GameTickArgs { Input = chInputState });
-
             if (_Game.ExitRequested)
             {
                 Exit();
             }
+
+            _FontManager.Now = gameTime.ElapsedGameTime.Ticks;
+            _FontManager.Cleanup();
 
             base.Update(gameTime);
         }
@@ -131,6 +134,9 @@ namespace MiffTheFox.Chiamo.MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            _FontManager.Now = gameTime.ElapsedGameTime.Ticks;
+            _FontManager.Cleanup();
+
             GraphicsDevice.Clear(Color.White);
             _SpriteBatch.Begin();
 

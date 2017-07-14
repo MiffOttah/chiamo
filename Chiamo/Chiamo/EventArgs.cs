@@ -23,4 +23,15 @@ namespace MiffTheFox.Chiamo
             Canvas = canvas;
         }
     }
+
+    public class SceneChangeEventArgs : EventArgs
+    {
+        private readonly Scene _Scene;
+        public Scene Scene => _Scene;
+
+        public SceneChangeEventArgs(Scene scene)
+        {
+            _Scene = scene;
+        }
+    }
 }

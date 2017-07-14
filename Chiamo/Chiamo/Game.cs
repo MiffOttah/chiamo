@@ -1,6 +1,7 @@
 ﻿using MiffTheFox.Chiamo.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MiffTheFox.Chiamo
 {
@@ -22,6 +23,8 @@ namespace MiffTheFox.Chiamo
 
         private long _GameTime = 0;
         public long GameTime {  get { return _GameTime; } }
+
+        public event EventHandler<SceneChangeEventArgs> SceneChanged;
 
         protected Game(int width, int height, string title, int speed = 66)
         {
@@ -82,12 +85,21 @@ namespace MiffTheFox.Chiamo
             scene.Height = this.Height;
 
             scene.Initalize();
+
+            OnSceneChanged(new SceneChangeEventArgs(scene));
         }
 
         public void PopScene()
         {
             var s = Scenes.Pop();
             s.OnPopped();
+
+            OnSceneChanged(new SceneChangeEventArgs(Scenes.FirstOrDefault()));
+        }
+
+        protected void OnSceneChanged(SceneChangeEventArgs e)
+        {
+            SceneChanged?.Invoke(this, e);
         }
 
         public void Exit()

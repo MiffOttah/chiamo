@@ -22,7 +22,9 @@ namespace MiffTheFox.Chiamo.MonoGame
 
         private Dictionary<long, Texture2D> _StringRenderings = new Dictionary<long, Texture2D>();
         private Dictionary<long, long> _StringAges = new Dictionary<long, long>();
-        const long TIMEOUT_AGE = 10000000 * 20;
+        const long TIMEOUT_AGE = 10000000 * 40;
+        private long _LastCleanup = 0;
+        public long Now { get; set; } = 0;
 
         public XFontManager(ChiamoMonoInstance instance)
         {
@@ -82,15 +84,12 @@ namespace MiffTheFox.Chiamo.MonoGame
             _Memory.Clear();
 
             // clear the prerendered strings
-            foreach (var sr in _StringRenderings.Values.ToArray()) sr.Dispose();
-            _StringRenderings.Clear();
-            _StringAges.Clear();
+            ClearStringCache();
         }
 
         public void PrerenderAndDraw(SpriteBatch batch, string fontName, string text, Color color, int textHeight, int x, int y, int w, int h, bool bold, bool italic, StringAlignment hAlign, StringAlignment vAlign)
         {
             long jobId;
-            long now = DateTime.Now.Ticks;
             bool render = true;
 
             unchecked
@@ -106,9 +105,9 @@ namespace MiffTheFox.Chiamo.MonoGame
 
             if (_StringAges.ContainsKey(jobId))
             {
-                if ((now - _StringAges[jobId]) >= TIMEOUT_AGE)
+                if ((Now - _StringAges[jobId]) >= TIMEOUT_AGE)
                 {
-                    _StringRenderings.Remove(jobId);
+                    _RemoveRendering(jobId);
                 }
                 else
                 {
@@ -140,6 +139,31 @@ namespace MiffTheFox.Chiamo.MonoGame
             }
 
             batch.Draw(_StringRenderings[jobId], new Microsoft.Xna.Framework.Rectangle(x, y, w, h), Microsoft.Xna.Framework.Color.White);
+        }
+
+        public void Cleanup()
+        {
+            if ((Now - _LastCleanup) >= TIMEOUT_AGE)
+            {
+                foreach (long jobId in _StringAges.Where(a => (Now - a.Value) >= TIMEOUT_AGE).Select(a => a.Key).ToArray())
+                {
+                    _StringAges.Remove(jobId);
+                    _RemoveRendering(jobId);
+                }
+            }
+        }
+
+        public void ClearStringCache()
+        {
+            foreach (var sr in _StringRenderings.Values.ToArray()) sr.Dispose();
+            _StringRenderings.Clear();
+            _StringAges.Clear();
+        }
+
+        private void _RemoveRendering(long jobId)
+        {
+            _StringRenderings[jobId].Dispose();
+            _StringRenderings.Remove(jobId);
         }
     }
 }
