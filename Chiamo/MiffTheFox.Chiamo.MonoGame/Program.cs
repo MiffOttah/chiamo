@@ -15,7 +15,7 @@ namespace MiffTheFox.Chiamo.MonoGame
         static void Main()
         {
             var launcher = new ChiamoMonoGameLauncher();
-            launcher.Launch(new ChHelloWorld.HelloGame());
+            launcher.Launch(new PlatformExample.PxGame());
         }
     }
 #endif
