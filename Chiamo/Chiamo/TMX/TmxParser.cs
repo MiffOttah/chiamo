@@ -52,11 +52,17 @@ namespace MiffTheFox.Chiamo.TMX
 
                         foreach (string tileIdStr in csv)
                         {
-                            int tileId;
-                            if (!int.TryParse(tileIdStr.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out tileId)) tileId = 1;
-                            tileId--; // Tiled uses 1-based indexes, Chiamo uses 0-based indexes.
+                            if (!int.TryParse(tileIdStr.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int tileId)) tileId = 1;
+
+                            // Tiled uses 1-based indexes, Chiamo uses 0-based indexes.
+                            // However, Tiled uses a 0 for undefined. When loading an undefined tile, simply fall back to the default type type (id = 0)
+                            if (tileId > 0)
+                            {
+                                tileId--;
+                            }
 
                             tilemap[x, y] = Convert.ToByte(tileId);
+
                             x++;
                             if (x >= tilemap.Width)
                             {
