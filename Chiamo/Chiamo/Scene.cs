@@ -15,10 +15,9 @@ namespace MiffTheFox.Chiamo
 
         public int Width { get; set; }
         public int Height { get; set; }
-        public Point CameraFocus { get; set; }
 
-        private Rectangle? _LastViewPort = null;
-        public Rectangle ViewPort => _LastViewPort ?? new Rectangle(0, 0, Width, Height);
+        private readonly Camera _Camera = new Camera();
+        public Camera Camera => _Camera;
 
         public ActorCollection Actors { get; private set; } = new ActorCollection();
         public TileMapCollection TileMaps { get; private set; } = new TileMapCollection();
@@ -37,14 +36,8 @@ namespace MiffTheFox.Chiamo
 
         public virtual void Draw(GameDrawArgs e)
         {
-            var viewPort = new Rectangle(this.CameraFocus.X - Game.Width / 2, this.CameraFocus.Y - Game.Height / 2, Game.Width, Game.Height);
+            var viewPort = _Camera.RecalcuateViewPort(this);
 
-            if (viewPort.X < 0) viewPort.X = 0;
-            if (viewPort.Y < 0) viewPort.Y = 0;
-            if (viewPort.Right > this.Width) viewPort.X = this.Width - viewPort.Width;
-            if (viewPort.Bottom > this.Height) viewPort.Y = this.Height - viewPort.Height;
-
-            _LastViewPort = viewPort;
             var oc = new OffsetCanvas(e.Canvas, -viewPort.X, -viewPort.Y);
             var oa = new GameDrawArgs(oc) { Game = e.Game };
 

@@ -62,7 +62,7 @@ namespace MiffTheFox.Chiamo.Actors
             // update camera position if following this player
             if (CameraFollows)
             {
-                s.CameraFocus = new System.Drawing.Point(this.X + this.Width / 2, this.Y + this.Height / 2);
+                s.Camera.Focus = new System.Drawing.Point(this.X + this.Width / 2, this.Y + this.Height / 2);
             }
 
             if (!ladder)
