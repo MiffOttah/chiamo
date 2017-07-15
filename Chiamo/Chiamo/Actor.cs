@@ -24,6 +24,11 @@ namespace MiffTheFox.Chiamo
             get { return new Rectangle(X, Y, Width, Height); }
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
+        public Point Location
+        {
+            get { return new Point(X, Y); }
+            set { X = value.X; Y = value.Y; }
+        }
         public int ZIndex { get; set; }
 
         public Actor(int width, int height)

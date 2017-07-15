@@ -49,5 +49,12 @@ namespace MiffTheFox.Chiamo.Util
         {
             return new Point(a.X + b.X, a.Y + b.Y);
         }
+
+        public static int Distance(Point a, Point b)
+        {
+            int xD = b.X - a.X;
+            int yD = b.Y - a.Y;
+            return Convert.ToInt32(Math.Round(Math.Sqrt(xD * xD + yD * yD)));
+        }
     }
 }
