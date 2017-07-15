@@ -15,13 +15,7 @@ namespace PlatformExample
 
         public override void Initalize()
         {
-            Sprites.AddSprite("Player", Properties.Resources.player);
-            Sprites.AddSprite("Coin", Properties.Resources.coin);
-            Sprites.AddSprite("Enemy", Properties.Resources.enemy);
-            Sprites.AddSprite("Tiles", Properties.Resources.tiles);
-            Sprites.AddSprite("Title", Properties.Resources.title);
-            Sprites.AddSprite("EndGame", Properties.Resources.endgame);
-            Sprites.AddSprite("EndCastle", Properties.Resources.endcastle);
+            MiffTheFox.Chiamo.Util.ResourceImporter.ImportSprites<Properties.Resources>(Sprites);
 
             Music?.AddSong("Theme", Properties.Resources.chiamo_platformexample_theme);
 

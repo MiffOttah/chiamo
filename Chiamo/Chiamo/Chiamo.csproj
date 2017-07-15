@@ -69,6 +69,7 @@
     <Compile Include="TMX\TmxObjectInfo.cs" />
     <Compile Include="TMX\TmxParseException.cs" />
     <Compile Include="TMX\TmxParser.cs" />
+    <Compile Include="Util\ResourceImporter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
