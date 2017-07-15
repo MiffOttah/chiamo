@@ -67,6 +67,29 @@ namespace MiffTheFox.Chiamo
 
             return tiles.ToArray();
         }
+
+        public void SetTilesAtSceneCoords(int x, int y, byte setTo)
+        {
+            int tx = x / Tileset.TileWidth;
+            int ty = y / Tileset.TileHeight;
+            this[tx, ty] = setTo;
+        }
+
+        public void SetTilesAtSceneRect(Rectangle rect, byte setTo)
+        {
+            int startX = rect.Left / Tileset.TileWidth;
+            int endX = rect.Right / Tileset.TileWidth;
+            int startY = rect.Top / Tileset.TileHeight;
+            int endY = rect.Bottom / Tileset.TileHeight;
+
+            for (int i = startX; i <= endX; i++)
+            {
+                for (int j = startY; j <= endY; j++)
+                {
+                    this[i, j] = setTo;
+                }
+            }
+        }
     }
     
 }
