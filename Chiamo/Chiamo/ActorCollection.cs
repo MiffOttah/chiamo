@@ -9,7 +9,7 @@ namespace MiffTheFox.Chiamo
 {
     public class ActorCollection : ICollection<Actor>
     {
-        private Dictionary<Guid, Actor> _Actors = new Dictionary<Guid, Actor>();
+        private readonly Dictionary<Guid, Actor> _Actors = new Dictionary<Guid, Actor>();
 
         public int Count { get { return _Actors.Count; } }
         public bool IsReadOnly { get { return false; } }
@@ -62,6 +62,14 @@ namespace MiffTheFox.Chiamo
         IEnumerator IEnumerable.GetEnumerator()
         {
             return (IEnumerator)GetEnumerator();
+        }
+
+        public Actor this[Guid guid]
+        {
+            get
+            {
+                return _Actors[guid];
+            }
         }
     }
 }
