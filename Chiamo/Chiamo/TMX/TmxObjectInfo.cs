@@ -50,8 +50,8 @@ namespace MiffTheFox.Chiamo.TMX
 
                 foreach (XmlElement propertyElement in propertiesElement.GetElementsByTagName("property"))
                 {
-                    string name = propertiesElement.GetAttribute("name");
-                    string value = propertiesElement.GetAttribute("value");
+                    string name = propertyElement.GetAttribute("name");
+                    string value = propertyElement.GetAttribute("value");
                     _Properties.Add(name, value);
                 }
             }
