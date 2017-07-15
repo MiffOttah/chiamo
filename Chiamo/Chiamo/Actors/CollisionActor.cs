@@ -10,6 +10,7 @@ namespace MiffTheFox.Chiamo.Actors
     public abstract class CollisionActor : Actor
     {
         public virtual Rectangle HitBox { get { return this.Bounds; } }
+        public virtual CollisionWith CollidesWith { get; protected set; } = CollisionWith.Actor | CollisionWith.SceneEdge | CollisionWith.Tile;
 
         protected CollisionActor(int width, int height) : base(width, height)
         {
@@ -84,13 +85,16 @@ namespace MiffTheFox.Chiamo.Actors
 
         private CollisionInfo _CollisionWithAnything(Scene scene, Rectangle hb)
         {
-            return _CheckCollisionWithSceneEdge(scene, hb) | _CheckCollisionWithOtherActor(scene, hb) | _CheckCollisionWithTilemap(scene, hb);
+            var r = CollisionInfo.None;
+            if (CollidesWith.HasFlag(CollisionWith.SceneEdge)) r |= _CheckCollisionWithSceneEdge(scene, hb);
+            if (CollidesWith.HasFlag(CollisionWith.Actor)) r |= _CheckCollisionWithOtherActor(scene, hb);
+            if (CollidesWith.HasFlag(CollisionWith.Tile)) r |= _CheckCollisionWithTilemap(scene, hb);
+            return r;
         }
 
         public CollisionInfo CollisionWithAnything(Scene scene)
         {
-            var hb = this.HitBox;
-            return _CollisionWithAnything(scene, hb);
+            return _CollisionWithAnything(scene, HitBox);
         }
 
         public CollisionInfo PossibleCollisionWithAnything(Scene scene, int movementX, int movementY)
