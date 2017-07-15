@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -19,17 +20,22 @@ namespace MiffTheFox.Chiamo.TMX
             Name = objectElement.GetAttribute("name") ?? "";
             X = 0;
             Y = 0;
-
             int n;
-            if (int.TryParse(objectElement.GetAttribute("x"), NumberStyles.None, CultureInfo.InvariantCulture, out n)) X = n;
+
+            if (int.TryParse(objectElement.GetAttribute("x"), NumberStyles.None, CultureInfo.InvariantCulture, out n))
+            {
+                X = n;
+            }
+
             if (int.TryParse(objectElement.GetAttribute("y"), NumberStyles.None, CultureInfo.InvariantCulture, out n))
             {
                 Y = n;
 
                 // Tiled uses the origin point of an actor in the bottom left, whereis Chiamo uses the top left.
                 // Therefore, fix the Y value by adding the height the Tiled expected the object to be.
+                // (Turns out this is only for "tile" objects?"
 
-                if (int.TryParse(objectElement.GetAttribute("height"), NumberStyles.None, CultureInfo.InvariantCulture, out n))
+                if (objectElement.HasAttribute("gid") && int.TryParse(objectElement.GetAttribute("height"), NumberStyles.None, CultureInfo.InvariantCulture, out n))
                 {
                     Y -= n;
                 }
