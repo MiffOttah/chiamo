@@ -14,6 +14,11 @@ namespace MiffTheFox.Chiamo.Util
             return new Point(r.X + (r.Width / 2), r.Y + (r.Height / 2));
         }
 
+        public static Point Midpoint(Actor a)
+        {
+            return new Point(a.X + (a.Width / 2), a.Y + (a.Height / 2));
+        }
+
         public static Rectangle PositionAroundMidpoint(Point midpoint, Size size)
         {
             return new Rectangle(
@@ -55,6 +60,11 @@ namespace MiffTheFox.Chiamo.Util
             int xD = b.X - a.X;
             int yD = b.Y - a.Y;
             return Convert.ToInt32(Math.Round(Math.Sqrt(xD * xD + yD * yD)));
+        }
+
+        public static int Distance(Rectangle a, Rectangle b)
+        {
+            return Distance(Midpoint(a), Midpoint(b));
         }
     }
 }
