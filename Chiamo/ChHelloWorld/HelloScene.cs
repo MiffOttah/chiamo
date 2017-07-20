@@ -60,6 +60,9 @@ namespace ChHelloWorld
                 }
             }
 
+            // demonstrate mouse capture when the Z key is held down
+            Game.CaptureMouse = e.Input.JoyButton.HasFlag(JoyButton.Action1);
+
             // update actors
             base.Tick(e);
         }

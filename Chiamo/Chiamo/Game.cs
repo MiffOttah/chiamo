@@ -11,6 +11,9 @@ namespace MiffTheFox.Chiamo
         public int Height { get; private set; }
         public string Title { get; private set; }
 
+        public bool EnableMouseCursor { get; set; } = false;
+        public bool CaptureMouse { get; set; } = false;
+
         public int TargetTimerSpeed { get; private set; }
         public bool ExitRequested { get; private set; }
 

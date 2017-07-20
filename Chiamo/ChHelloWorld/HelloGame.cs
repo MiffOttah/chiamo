@@ -12,6 +12,7 @@ namespace ChHelloWorld
     {
         public HelloGame() : base(640, 480, "Hello world")
         {
+            this.EnableMouseCursor = true;
         }
 
         public override void Initalize()

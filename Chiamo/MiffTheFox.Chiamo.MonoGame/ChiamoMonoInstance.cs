@@ -109,6 +109,13 @@ namespace MiffTheFox.Chiamo.MonoGame
             _FontManager.Cleanup();
 
             base.Update(gameTime);
+
+
+            IsMouseVisible = _Game.EnableMouseCursor;
+            if (_Game.CaptureMouse)
+            {
+                Mouse.SetPosition(GraphicsDevice.Viewport.Width >> 1, GraphicsDevice.Viewport.Height >> 1);
+            }
         }
 
         private void _ProcessGamepad(GamePadState gamePadState, InputState chInputState)
