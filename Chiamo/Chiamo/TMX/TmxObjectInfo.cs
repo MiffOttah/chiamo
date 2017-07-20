@@ -51,7 +51,7 @@ namespace MiffTheFox.Chiamo.TMX
                 foreach (XmlElement propertyElement in propertiesElement.GetElementsByTagName("property"))
                 {
                     string name = propertyElement.GetAttribute("name");
-                    string value = propertyElement.GetAttribute("value");
+                    string value = string.IsNullOrEmpty(propertyElement.InnerText) ? propertyElement.GetAttribute("value") : propertyElement.InnerText;
                     _Properties.Add(name, value);
                 }
             }
