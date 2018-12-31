@@ -28,6 +28,9 @@ namespace ChHelloWorld
             // Load fonts
             Fonts.AddFont("ArchitectsDaughter", Properties.Resources.ArchitectsDaughter);
 
+            // Load save data
+            SaveData.Load("test");
+
             // Push initial scene
             PushScene(new HelloScene());
         }

@@ -15,7 +15,8 @@ namespace ChHelloWorld
     public class HelloScene : Scene
     {
         bool _Clicked = false;
-        Random _RNG = new Random();
+        bool _Unsaved = false;
+        readonly Random _RNG = new Random();
         const int GRAVITY = 2;
 
         public override void Initalize()
@@ -60,8 +61,20 @@ namespace ChHelloWorld
                 }
             }
 
-            // demonstrate mouse capture when the Z key is held down
-            Game.CaptureMouse = e.Input.JoyButton.HasFlag(JoyButton.Action1);
+            // Reroll a random number with the Z key
+            if (e.Input.JoyButton.HasFlag(JoyButton.Action1))
+            {
+                var data = ((HelloGame)Game).SaveData;
+                data.SomeRandomInt = _RNG.Next(10000);
+                data.LastUpdateTime = DateTime.UtcNow;
+                _Unsaved = true;
+            }
+            else if (_Unsaved)
+            {
+                var data = ((HelloGame)Game).SaveData;
+                data.Save("test");
+                _Unsaved = false;
+            }
 
             // update actors
             base.Tick(e);
@@ -73,6 +86,7 @@ namespace ChHelloWorld
 
             e.Canvas.DrawString(Game.Fonts["ArchitectsDaughter"], "Hello, world!", Color.Black, 80, 0, 0, Game.Width, Game.Height, true, false, StringAlignment.Center, StringAlignment.Center);
             e.Canvas.DrawString(Game.Fonts["ArchitectsDaughter"], "Font © Kimberly Geswein", Color.Black, 12, 0, 0, Game.Width, Game.Height, false, false, StringAlignment.Far, StringAlignment.Far);
+            e.Canvas.DrawString(Game.Fonts["ArchitectsDaughter"], $"Magic Number = {((HelloGame)Game).SaveData.SomeRandomInt:0000}", Color.Black, 12, 0, 0, Game.Width, Game.Height, false, false, StringAlignment.Near, StringAlignment.Far);
 
             base.Draw(e);
         }

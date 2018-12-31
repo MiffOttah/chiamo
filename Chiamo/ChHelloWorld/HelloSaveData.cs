@@ -9,8 +9,12 @@ namespace ChHelloWorld
 {
     public class HelloSaveData : GameSaveData
     {
+        public DateTime LastUpdateTime = DateTime.MinValue;
+        public int SomeRandomInt { get; set; } = 0;
+
         public HelloSaveData() : base("MiffTheFox.ChHelloWorld")
         {
+            SaveFileObfuscationKey = "FooBar";
         }
     }
 }
