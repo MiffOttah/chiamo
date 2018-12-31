@@ -7,6 +7,8 @@ namespace ChiamoLauncher
 {
     public partial class Form1 : Form
     {
+        readonly LauncherConfigStatus _Config = new LauncherConfigStatus();
+
         public Form1()
         {
             InitializeComponent();
@@ -15,11 +17,28 @@ namespace ChiamoLauncher
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _Config.Load();
+            
             AddGame(typeof(ChHelloWorld.HelloGame));
             AddGame(typeof(PlatformExample.PxGame));
 
             AddFrontend(new MiffTheFox.Chiamo.MonoGame.ChiamoMonoGameLauncher());
             AddFrontend(new MiffTheFox.Chiamo.SDL.ChiamoSdlLauncher());
+
+            SyncComboBox(cbGame, _Config.LastGame);
+            SyncComboBox(cbFrontend, _Config.LastFrontend);
+        }
+
+        private void SyncComboBox(ComboBox cb, string value)
+        {
+            for (int i = 0; i < cb.Items.Count; i++)
+            {
+                if (cb.Items[i].ToString() == value)
+                {
+                    cb.SelectedIndex = i;
+                    return;
+                }
+            }
         }
 
         private void AddFrontend(ChiamoFrontendLauncher launcher)
@@ -80,6 +99,11 @@ namespace ChiamoLauncher
             {
                 Program.Frontend = frontend;
                 Program.Game = game;
+
+                _Config.LastFrontend = frontend.ToString();
+                _Config.LastGame = game.ToString();
+                _Config.Save();
+
                 Close();
             }
             else
