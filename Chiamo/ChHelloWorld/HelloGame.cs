@@ -10,9 +10,12 @@ namespace ChHelloWorld
 {
     public class HelloGame : Game
     {
+        public HelloSaveData SaveData { get; private set; }
+
         public HelloGame() : base(640, 480, "Hello world")
         {
             this.EnableMouseCursor = true;
+            SaveData = new HelloSaveData();
         }
 
         public override void Initalize()
