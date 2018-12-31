@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MiffTheFox.Chiamo.Tiles;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiffTheFox.Chiamo.Actors
 {

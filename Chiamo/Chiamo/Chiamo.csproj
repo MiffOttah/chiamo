@@ -66,9 +66,9 @@
     <Compile Include="SaveData\GameSaveData.cs" />
     <Compile Include="SaveData\SavedGamesDirectoryFinder.cs" />
     <Compile Include="SaveData\SaveFileObfuscation.cs" />
-    <Compile Include="TileMap.cs" />
-    <Compile Include="TileMapCollection.cs" />
-    <Compile Include="Tileset.cs" />
+    <Compile Include="Tiles\TileMap.cs" />
+    <Compile Include="Tiles\TileMapCollection.cs" />
+    <Compile Include="Tiles\Tileset.cs" />
     <Compile Include="InputState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />

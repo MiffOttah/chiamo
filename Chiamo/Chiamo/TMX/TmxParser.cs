@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MiffTheFox.Chiamo.Tiles;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MiffTheFox.Chiamo.TMX

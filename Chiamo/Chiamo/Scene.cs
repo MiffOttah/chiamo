@@ -1,10 +1,8 @@
 ﻿using MiffTheFox.Chiamo.Graphics;
+using MiffTheFox.Chiamo.Tiles;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiffTheFox.Chiamo
 {
@@ -41,28 +39,9 @@ namespace MiffTheFox.Chiamo
             var oc = new OffsetCanvas(e.Canvas, -viewPort.X, -viewPort.Y);
             var oa = new GameDrawArgs(oc) { Game = e.Game };
 
-            foreach (var tm in TileMaps)
+            foreach (var tm in TileMaps.OrderBy(t => t.ZIndex))
             {
-                Rectangle tileDrawRegion = new Rectangle(
-                    viewPort.X - tm.Tileset.TileWidth,
-                    viewPort.Y - tm.Tileset.TileHeight,
-                    viewPort.Width + tm.Tileset.TileWidth * 2,
-                    viewPort.Height + tm.Tileset.TileHeight * 2
-                );
-
-                for (int i = 0; i < tm.Width; i++)
-                {
-                    for (int j = 0; j < tm.Height; j++)
-                    {
-                        int canvasX = i * tm.Tileset.TileWidth;
-                        int canvasY = j * tm.Tileset.TileHeight;
-
-                        if (tileDrawRegion.Contains(canvasX, canvasY))
-                        {
-                            tm.Tileset.DrawTitle(oa, canvasX, canvasY, tm[i, j]);
-                        }
-                    }
-                }
+                DrawTileMap(viewPort, oa, tm);
             }
 
             foreach (var actor in Actors.OrderBy(_ => _.ZIndex).ToArray())
@@ -70,6 +49,31 @@ namespace MiffTheFox.Chiamo
                 if (actor.Bounds.IntersectsWith(viewPort))
                 {
                     actor.Draw(oa);
+                }
+            }
+        }
+
+        private static void DrawTileMap(Rectangle viewPort, GameDrawArgs oa, TileMap tm)
+        {
+            Rectangle tileDrawRegion = new Rectangle(
+                viewPort.X - tm.Tileset.TileWidth,
+                viewPort.Y - tm.Tileset.TileHeight,
+                viewPort.Width + tm.Tileset.TileWidth * 2,
+                viewPort.Height + tm.Tileset.TileHeight * 2
+            );
+
+            int i = Math.Max(0, tileDrawRegion.X / tm.Tileset.TileWidth);
+            int jstart = Math.Max(0, tileDrawRegion.Y / tm.Tileset.TileHeight);
+            int iend = Math.Min(tileDrawRegion.Right / tm.Tileset.TileWidth + 1, tm.Width);
+            int jend = Math.Min(tileDrawRegion.Bottom / tm.Tileset.TileHeight + 1, tm.Height);
+
+            for (; i < iend; i++)
+            {
+                for (int j = jstart; j < jend; j++)
+                {
+                    int canvasX = i * tm.Tileset.TileWidth;
+                    int canvasY = j * tm.Tileset.TileHeight;
+                    tm.Tileset.DrawTitle(oa, canvasX, canvasY, tm[i, j]);
                 }
             }
         }

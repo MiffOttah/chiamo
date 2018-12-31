@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MiffTheFox.Chiamo.Tiles;
+using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MiffTheFox.Chiamo.Actors
 {
@@ -189,7 +188,7 @@ namespace MiffTheFox.Chiamo.Actors
         public CollisionWith With { get; set; }
         public Actor OtherActor { get; set; }
 
-        public bool HasCollision {  get { return Edge != CollisionEdge.None; } }
+        public bool HasCollision { get { return Edge != CollisionEdge.None; } }
 
         public static CollisionInfo None { get { return new CollisionInfo(CollisionEdge.None, CollisionWith.None); } }
 

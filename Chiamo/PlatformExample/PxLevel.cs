@@ -1,11 +1,7 @@
 ﻿using MiffTheFox.Chiamo;
+using MiffTheFox.Chiamo.Tiles;
 using MiffTheFox.Chiamo.TMX;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlatformExample
 {
@@ -24,11 +20,13 @@ namespace PlatformExample
             this.Width = TILESIZE * TILE_W;
             this.Height = TILESIZE * TILE_H;
 
-            var player = new Player();
-            player.X = 40;
-            player.Y = 40;
-            player.CameraFollows = true;
-            player.Gravity = GRAVITY;
+            var player = new Player
+            {
+                X = 40,
+                Y = 40,
+                CameraFollows = true,
+                Gravity = GRAVITY
+            };
             this.Actors.Add(player);
 
             var tilemap = new TileMap(new PxTileset(), TILE_W, TILE_H);

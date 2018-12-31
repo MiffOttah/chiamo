@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace MiffTheFox.Chiamo
+namespace MiffTheFox.Chiamo.Tiles
 {
     public abstract class Tileset
     {
@@ -16,7 +16,7 @@ namespace MiffTheFox.Chiamo
             TileSprites = tileSprites;
         }
 
-        public void DrawTitle(GameDrawArgs e, int canvasX, int canvasY, byte tileId)
+        public virtual void DrawTitle(GameDrawArgs e, int canvasX, int canvasY, byte tileId)
         {
             var si = e.Game.Sprites[TileSprites];
 

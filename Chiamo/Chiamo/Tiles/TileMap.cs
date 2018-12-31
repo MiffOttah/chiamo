@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace MiffTheFox.Chiamo
+namespace MiffTheFox.Chiamo.Tiles
 {
     public class TileMap
     {
-        private byte[,] _TilemapData;
+        private readonly byte[,] _TilemapData;
 
         public Tileset Tileset { get; private set; }
         public int Width { get; private set; }
