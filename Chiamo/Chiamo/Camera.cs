@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiffTheFox.Chiamo.Util;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,9 +12,18 @@ namespace MiffTheFox.Chiamo
     {
         public Point Focus { get; set; }
         public bool ConstrainToScene { get; set; } = true;
+        public bool FollowFocus { get; set; } = true;
 
         private Rectangle? _LastViewPort;
-        public Rectangle ViewPort => _LastViewPort ?? new Rectangle(0, 0, 0, 0);
+        public Rectangle ViewPort
+        {
+            get => _LastViewPort ?? new Rectangle(0, 0, 0, 0);
+            set
+            {
+                _LastViewPort = value;
+                FollowFocus = false;
+            }
+        }
 
         public Camera()
         {
@@ -23,8 +33,8 @@ namespace MiffTheFox.Chiamo
 
         public Rectangle RecalcuateViewPort(Scene s)
         {
-            var viewPort = new Rectangle(this.Focus.X - s.Game.Width / 2, this.Focus.Y - s.Game.Height / 2, s.Game.Width, s.Game.Height);
-
+            var viewPort = FollowFocus ? Geometry.PositionAroundMidpoint(Focus.X, Focus.Y, s.Game.Width, s.Game.Height) : (_LastViewPort ?? new Rectangle(0, 0, s.Game.Width, s.Game.Height));
+            
             if (ConstrainToScene)
             {
                 if (viewPort.X < 0) viewPort.X = 0;
