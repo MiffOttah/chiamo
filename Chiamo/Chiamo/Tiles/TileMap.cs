@@ -44,6 +44,25 @@ namespace MiffTheFox.Chiamo.Tiles
             }
         }
 
+        public Rectangle GetTileBounds(int x, int y)
+        {
+            return new Rectangle(x * Tileset.TileWidth, y * Tileset.TileHeight, Tileset.TileWidth, Tileset.TileHeight);
+        }
+
+        public Rectangle GetTileBoundsFromSceneCoords(int x, int y)
+        {
+            int tx = x / Tileset.TileWidth;
+            int ty = y / Tileset.TileHeight;
+            return new Rectangle(tx * Tileset.TileWidth, ty * Tileset.TileHeight, Tileset.TileWidth, Tileset.TileHeight);
+        }
+
+        public Point GetTilePointFromSceneCoords(int x, int y)
+        {
+            int tx = x / Tileset.TileWidth;
+            int ty = y / Tileset.TileHeight;
+            return new Point(tx, ty);
+        }
+
         public byte GetTileAtSceneCoords(int x, int y)
         {
             int tx = x / Tileset.TileWidth;

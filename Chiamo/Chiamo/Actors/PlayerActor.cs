@@ -1,11 +1,18 @@
 ﻿using MiffTheFox.Chiamo.Tiles;
-using System.Linq;
+using MiffTheFox.Chiamo.Util;
+using System;
 
 namespace MiffTheFox.Chiamo.Actors
 {
     public abstract class PlayerActor : GravityActor
     {
-        public bool Grounded { get; protected set; } = false;
+        public bool Grounded
+        {
+            get => GroundedTimer > 0;
+            protected set => GroundedTimer = value ? 2 : 0;
+        }
+        protected int GroundedTimer = 0;
+
         public int Speed { get; set; } = 10;
         public int JumpVelocity { get; set; } = 20;
         public bool CameraFollows { get; set; } = false;
@@ -18,22 +25,33 @@ namespace MiffTheFox.Chiamo.Actors
         public override void Tick(GameTickArgs e, Scene s)
         {
             bool ladder = false;
+
+            var myMidpoint = Geometry.Midpoint(HitBox);
+            int ladderX = 0;
+
             foreach (var tm in s.TileMaps)
             {
-                if (tm.GetTilesAtSceneRect(this.HitBox).Any(_ => tm.Tileset.GetTileType(_) == TileType.Ladder))
+                if (tm.Tileset.GetTileType(tm.GetTileAtSceneCoords(myMidpoint.X, myMidpoint.Y)) == TileType.Ladder)
                 {
                     ladder = true;
+                    ladderX = tm.GetTileBoundsFromSceneCoords(myMidpoint.X, myMidpoint.Y).X + (tm.Tileset.TileWidth / 2);
                     break;
                 }
             }
-            
-            if (ladder && e.Input[JoyButton.Up] == InputButtonState.Held)
+
+            if (ladder)
             {
-                this.TryMove(s, 0, -Speed);
-            }
-            if (ladder && e.Input[JoyButton.Down] == InputButtonState.Held)
-            {
-                this.TryMove(s, 0, Speed);
+                int ladderOffsetMax = Math.Max(Speed / 3, 2);
+                int ladderOffset = MathUtil.Clamp(ladderX - myMidpoint.X, -ladderOffsetMax, ladderOffsetMax);
+
+                if (e.Input[JoyButton.Up] == InputButtonState.Held)
+                {
+                    this.TryMove(s, ladderOffset, -Speed);
+                }
+                else if (e.Input[JoyButton.Down] == InputButtonState.Held)
+                {
+                    this.TryMove(s, ladderOffset, Speed);
+                }
             }
 
             if (e.Input[JoyButton.Left] == InputButtonState.Held)
@@ -64,6 +82,7 @@ namespace MiffTheFox.Chiamo.Actors
 
             if (!ladder)
             {
+                if (GroundedTimer > 0) GroundedTimer--;
                 base.Tick(e, s);
             }
         }
