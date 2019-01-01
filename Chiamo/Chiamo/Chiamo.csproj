@@ -63,6 +63,7 @@
     <Compile Include="Graphics\FontManager.cs" />
     <Compile Include="Graphics\SpriteManager.cs" />
     <Compile Include="Graphics\OffsetCanvas.cs" />
+    <Compile Include="InputAdvanced.cs" />
     <Compile Include="SaveData\GameSaveData.cs" />
     <Compile Include="SaveData\SavedGamesDirectoryFinder.cs" />
     <Compile Include="SaveData\SaveFileObfuscation.cs" />

@@ -14,8 +14,6 @@ namespace ChHelloWorld
     /// </summary>
     public class HelloScene : Scene
     {
-        bool _Clicked = false;
-        bool _Unsaved = false;
         readonly Random _RNG = new Random();
         const int GRAVITY = 2;
 
@@ -32,28 +30,20 @@ namespace ChHelloWorld
 
         public override void Tick(GameTickArgs e)
         {
-            if (e.Input.MouseButton == MouseButton.Left)
+            if (e.Input[MouseButton.Left] == InputButtonState.Rising)
             {
-                if (!_Clicked)
-                {
-                    MomentumCollisionActor ball = _RNG.Next(2) == 0 ? (MomentumCollisionActor)(new Ball()) : (MomentumCollisionActor)(new GravityBall() { Gravity = GRAVITY });
+                MomentumCollisionActor ball = _RNG.Next(2) == 0 ? (MomentumCollisionActor)(new Ball()) : (MomentumCollisionActor)(new GravityBall() { Gravity = GRAVITY });
 
-                    ball.X = e.Input.MouseX - 20;
-                    ball.Y = e.Input.MouseY - 20;
-                    ball.XMomentum = _RNG.Next(-1, 2) * 10;
-                    ball.YMomentum = _RNG.Next(-1, 2) * 10;
+                ball.X = e.Input.MouseX - 20;
+                ball.Y = e.Input.MouseY - 20;
+                ball.XMomentum = _RNG.Next(-1, 2) * 10;
+                ball.YMomentum = _RNG.Next(-1, 2) * 10;
 
-                    Actors.Add(ball);
-                    _Clicked = true;
-                }
-            }
-            else
-            {
-                _Clicked = false;
+                Actors.Add(ball);
             }
 
             // press the menu button (escape) to remove all balls
-            if (e.Input.JoyButton.HasFlag(JoyButton.Menu))
+            if (e.Input[JoyButton.Menu] == InputButtonState.Rising)
             {
                 foreach (var actor in Actors.Where(_ => _ is Ball || _ is GravityBall).ToArray())
                 {
@@ -62,18 +52,16 @@ namespace ChHelloWorld
             }
 
             // Reroll a random number with the Z key
-            if (e.Input.JoyButton.HasFlag(JoyButton.Action1))
+            if (e.Input[JoyButton.Action1] == InputButtonState.Held)
             {
                 var data = ((HelloGame)Game).SaveData;
                 data.SomeRandomInt = _RNG.Next(10000);
                 data.LastUpdateTime = DateTime.UtcNow;
-                _Unsaved = true;
             }
-            else if (_Unsaved)
+            else if (e.Input[JoyButton.Action1] == InputButtonState.Falling)
             {
                 var data = ((HelloGame)Game).SaveData;
                 data.Save("test");
-                _Unsaved = false;
             }
 
             // update actors

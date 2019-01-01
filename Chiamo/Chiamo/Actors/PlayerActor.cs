@@ -26,29 +26,29 @@ namespace MiffTheFox.Chiamo.Actors
                     break;
                 }
             }
-
-            if (ladder && e.Input.JoyButton.HasFlag(JoyButton.Up))
+            
+            if (ladder && e.Input[JoyButton.Up] == InputButtonState.Held)
             {
                 this.TryMove(s, 0, -Speed);
             }
-            if (ladder && e.Input.JoyButton.HasFlag(JoyButton.Down))
+            if (ladder && e.Input[JoyButton.Down] == InputButtonState.Held)
             {
                 this.TryMove(s, 0, Speed);
             }
 
-            if (e.Input.JoyButton.HasFlag(JoyButton.Left))
+            if (e.Input[JoyButton.Left] == InputButtonState.Held)
             {
                 Facing = PlayerFacing.Left;
                 this.TryMove(s, -Speed, 0);
             }
 
-            if (e.Input.JoyButton.HasFlag(JoyButton.Right))
+            if (e.Input[JoyButton.Right] == InputButtonState.Held)
             {
                 Facing = PlayerFacing.Right;
                 this.TryMove(s, Speed, 0);
             }
 
-            if (e.Input.JoyButton.HasFlag(JoyButton.Jump))
+            if (e.Input[JoyButton.Jump] == InputButtonState.Rising)
             {
                 if (Grounded)
                 {

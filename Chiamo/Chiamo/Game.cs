@@ -23,9 +23,10 @@ namespace MiffTheFox.Chiamo
         public Audio.SoundManager Sounds { get; set; }
 
         protected Stack<Scene> Scenes = new Stack<Scene>();
+        private readonly AdvancedInputController _AdvancedInputController = new AdvancedInputController();
 
         private long _GameTime = 0;
-        public long GameTime {  get { return _GameTime; } }
+        public long GameTime => _GameTime;
 
         public event EventHandler<SceneChangeEventArgs> SceneChanged;
 
@@ -43,6 +44,9 @@ namespace MiffTheFox.Chiamo
         {
             _GameTime++;
             if (_GameTime == long.MaxValue) _GameTime = 0;
+
+            _AdvancedInputController.Update(e.Input.MouseButton, e.Input.JoyButton);
+            e.Input.States = _AdvancedInputController;
 
             e.Game = this;
 
