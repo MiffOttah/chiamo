@@ -34,12 +34,13 @@ namespace MiffTheFox.Chiamo.TMX
             Width = _ParseAttr(objectElement, "width");
             Height = _ParseAttr(objectElement, "height");
 
+            // If the gid attribute is present, the origin is bottom-left, not top-left.
             if (objectElement.HasAttribute("gid"))
             {
                 Y -= Height;
             }
 
-            var propertiesElement = objectElement.ChildNodes.Cast<XmlNode>().Where(xn => xn is XmlElement && xn.Name == "properties").FirstOrDefault() as XmlElement;
+            var propertiesElement = objectElement.ChildNodes.OfType<XmlElement>().Where(xn => xn.Name == "properties").FirstOrDefault();
             if (propertiesElement == null)
             {
                 _Properties = null;

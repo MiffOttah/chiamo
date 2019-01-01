@@ -1,5 +1,6 @@
 ﻿using MiffTheFox.Chiamo.Tiles;
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace MiffTheFox.Chiamo.TMX
     {
         private XmlDocument _TmxDoc;
 
+        public Size MapSizeInPixels { get; }
+        public Size MapSizeInTiles { get; }
+        public Size TileSize { get; }
+
         public TmxParser(byte[] tmxData)
         {
             _TmxDoc = new XmlDocument();
@@ -26,14 +31,32 @@ namespace MiffTheFox.Chiamo.TMX
             {
                 throw new TmxParseException("This doesn't look like an orthogonal right-down TMX map.");
             }
+
+            if (_TmxDoc.DocumentElement.GetAttribute("infinite") == "1")
+            {
+                throw new TmxParseException("Infinite maps are not supported.");
+            }
+
+            try
+            {
+                int width = int.Parse(_TmxDoc.DocumentElement.GetAttribute("width"));
+                int height = int.Parse(_TmxDoc.DocumentElement.GetAttribute("height"));
+                int tileWidth = int.Parse(_TmxDoc.DocumentElement.GetAttribute("tilewidth"));
+                int tileHeight = int.Parse(_TmxDoc.DocumentElement.GetAttribute("tileheight"));
+
+                MapSizeInPixels = new Size(width * tileWidth, height * tileHeight);
+                MapSizeInTiles = new Size(width, height);
+                TileSize = new Size(tileWidth, tileHeight);
+            }
+            catch (FormatException)
+            {
+                throw new TmxParseException("Failed to parse TMX map size.");
+            }
         }
 
         public void ParseTileLayer(string name, TileMap tilemap)
         {
-            string widthStr = tilemap.Width.ToString(CultureInfo.InvariantCulture);
-            string heightStr = tilemap.Height.ToString(CultureInfo.InvariantCulture);
-
-            if (widthStr != _TmxDoc.DocumentElement.GetAttribute("width") || heightStr != _TmxDoc.DocumentElement.GetAttribute("height"))
+            if (tilemap.Width != MapSizeInTiles.Width || tilemap.Height != MapSizeInTiles.Height)
             {
                 throw new TmxParseException("Width and height of TMX map do not match tilemap given.");
             }
