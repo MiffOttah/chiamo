@@ -7,13 +7,15 @@ namespace PlatformExample
         Sky = 0,
         Wall = 1,
         Pipe = 2,
-        Ladder = 3
+        Ladder = 3,
+        ClumpWall = 4
     }
 
     public class PxTileset : Tileset
     {
         public PxTileset() : base(40, 40, "Tiles")
         {
+            Overrides.Add(new ClumpingTileRendering(4, "ExampleClumpTiles"));
         }
 
         public override TileType GetTileType(byte tileId)

@@ -67,13 +67,19 @@ namespace MiffTheFox.Chiamo
             int iend = Math.Min(tileDrawRegion.Right / tm.Tileset.TileWidth + 1, tm.Width);
             int jend = Math.Min(tileDrawRegion.Bottom / tm.Tileset.TileHeight + 1, tm.Height);
 
+            var e = new TileRenderArgs
+            {
+                GameDrawArgs = oa,
+                TileMap = tm
+            };
+
             for (; i < iend; i++)
             {
                 for (int j = jstart; j < jend; j++)
                 {
-                    int canvasX = i * tm.Tileset.TileWidth;
-                    int canvasY = j * tm.Tileset.TileHeight;
-                    tm.Tileset.DrawTitle(oa, canvasX, canvasY, tm[i, j]);
+                    e.TileX = i;
+                    e.TileY = j;
+                    tm.Tileset.DrawTile(e);
                 }
             }
         }
